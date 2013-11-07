@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE09B182B0DA4008C2DBA /* main.cpp */; };
-		62FDE09E182B0DA4008C2DBA /* BattlezoneClone.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62FDE09D182B0DA4008C2DBA /* BattlezoneClone.1 */; };
+		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
+		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +19,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				62FDE09E182B0DA4008C2DBA /* BattlezoneClone.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -27,7 +27,8 @@
 /* Begin PBXFileReference section */
 		62FDE098182B0DA4008C2DBA /* BattlezoneClone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattlezoneClone; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FDE09B182B0DA4008C2DBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		62FDE09D182B0DA4008C2DBA /* BattlezoneClone.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BattlezoneClone.1; sourceTree = "<group>"; };
+		62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		62FDE0A6182B0DC7008C2DBA /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */,
+				62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +47,8 @@
 		62FDE08F182B0DA4008C2DBA = {
 			isa = PBXGroup;
 			children = (
+				62FDE0A6182B0DC7008C2DBA /* GLUT.framework */,
+				62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */,
 				62FDE09A182B0DA4008C2DBA /* BattlezoneClone */,
 				62FDE099182B0DA4008C2DBA /* Products */,
 			);
@@ -61,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				62FDE09B182B0DA4008C2DBA /* main.cpp */,
-				62FDE09D182B0DA4008C2DBA /* BattlezoneClone.1 */,
 			);
 			path = BattlezoneClone;
 			sourceTree = "<group>";
@@ -195,6 +199,7 @@
 		62FDE0A2182B0DA5008C2DBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -202,6 +207,7 @@
 		62FDE0A3182B0DA5008C2DBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
