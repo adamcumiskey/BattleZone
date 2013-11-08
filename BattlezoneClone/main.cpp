@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include "Camera.h"
+#include "TerrainManager.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -20,53 +21,44 @@
 #define TABLE_HEIGHT 2000
 
 CCamera Camera(0.0, 0.5, 0.0);
+TerrainManager terrainManager;
 
 void setup()
 {
     // Set the clear color to black and enable depth testing
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
+    
+    terrainManager.generateObjects(100, 50);
 }
 
 void drawGround()
 {
-    float origin[4] = {0, 0, 0, 1};
-    float one[4] = {1, 0, 0, 0};
-    float two[4] = {0, 0, 1, 0};
-    float three[4] = {-1, 0, 0, 0};
-    float four[4] = {0, 0, -1, 0};
-    
-    glColor3f(0.0, 1.0, 0.0);
-    glBegin(GL_TRIANGLES);
-    
-    glVertex4fv(origin);
-    glVertex4fv(one);
-    glVertex4fv(two);
-    
-    glVertex4fv(origin);
-    glVertex4fv(two);
-    glVertex4fv(three);
-    
-    glVertex4fv(origin);
-    glVertex4fv(three);
-    glVertex4fv(four);
-    
-    glVertex4fv(origin);
-    glVertex4fv(four);
-    glVertex4fv(one);
-
+    // Draw 4 triangles from the origin with
+    // 4 unit vertecies located at infinity
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex4f(0, 0, 0, 1);
+    glVertex4f(1, 0, 0, 0);
+    glVertex4f(0, 0, 1, 0);
+    glVertex4f(-1, 0, 0, 0);
+    glVertex4f(0, 0, -1, 0);
+    glVertex4f(1, 0, 0, 0);
     glEnd();
 }
 
 void drawScene()
 {
-    glPolygonMode(GL_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    
+    glColor3f(0.0, 1.0, 0.0);
+
+    // Draw the camera
     Camera.Render();
     
     drawGround();
+    
+    terrainManager.renderTerrain();
     
     glutSwapBuffers();
 }
@@ -76,7 +68,7 @@ void resize(int w, int h)
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(25.0f, 2.0, 1, 500);
+    gluPerspective(25.0f, 2.0, 1, 50);
     
     glMatrixMode(GL_MODELVIEW);
 }
@@ -89,13 +81,13 @@ void keyInput(unsigned char key, int x, int y)
             exit(0);
             break;
         case 'w':
-            Camera.MoveForward(-.1);
+            Camera.MoveForward(-.5);
             break;
         case 'a':
             Camera.RotateY(5.0);
             break;
         case 's':
-            Camera.MoveForward(.1);
+            Camera.MoveForward(.5);
             break;
         case 'd':
             Camera.RotateY(-5.0);

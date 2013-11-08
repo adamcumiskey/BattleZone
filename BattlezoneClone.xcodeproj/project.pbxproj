@@ -11,6 +11,8 @@
 		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
 		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
 		62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0A9182C4590008C2DBA /* Camera.cpp */; };
+		62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */; };
+		62FDE0B4182C5620008C2DBA /* TerrainManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,10 @@
 		62FDE0A6182B0DC7008C2DBA /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		62FDE0A9182C4590008C2DBA /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		62FDE0AA182C4590008C2DBA /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainObject.cpp; sourceTree = "<group>"; };
+		62FDE0AE182C55FF008C2DBA /* TerrainObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainObject.h; sourceTree = "<group>"; };
+		62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainManager.cpp; sourceTree = "<group>"; };
+		62FDE0B3182C5620008C2DBA /* TerrainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +74,9 @@
 		62FDE09A182B0DA4008C2DBA /* BattlezoneClone */ = {
 			isa = PBXGroup;
 			children = (
-				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
+				62FDE0B0182C5609008C2DBA /* Terrain */,
+				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 			);
 			path = BattlezoneClone;
 			sourceTree = "<group>";
@@ -81,6 +88,33 @@
 				62FDE0A9182C4590008C2DBA /* Camera.cpp */,
 			);
 			name = Camera;
+			sourceTree = "<group>";
+		};
+		62FDE0AC182C55E6008C2DBA /* TerrainObject */ = {
+			isa = PBXGroup;
+			children = (
+				62FDE0AE182C55FF008C2DBA /* TerrainObject.h */,
+				62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */,
+			);
+			name = TerrainObject;
+			sourceTree = "<group>";
+		};
+		62FDE0B0182C5609008C2DBA /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				62FDE0B1182C5612008C2DBA /* TerrainManager */,
+				62FDE0AC182C55E6008C2DBA /* TerrainObject */,
+			);
+			name = Terrain;
+			sourceTree = "<group>";
+		};
+		62FDE0B1182C5612008C2DBA /* TerrainManager */ = {
+			isa = PBXGroup;
+			children = (
+				62FDE0B3182C5620008C2DBA /* TerrainManager.h */,
+				62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */,
+			);
+			name = TerrainManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +170,8 @@
 			files = (
 				62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */,
 				62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */,
+				62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */,
+				62FDE0B4182C5620008C2DBA /* TerrainManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
