@@ -10,21 +10,7 @@
 
 TerrainManager::TerrainManager()
 {
-    
-}
 
-void TerrainManager::renderTerrain()
-{
-    objectIterator = objects.begin();
-    while (objectIterator != objects.end()) {
-        objectIterator->renderObject();
-        objectIterator++;
-    }
-}
-
-void TerrainManager::addObject(TerrainObject object)
-{
-    objects.push_back(object);
 }
 
 void TerrainManager::generateObjects(int n, int gridSize)
@@ -43,8 +29,21 @@ void TerrainManager::generateObjects(int n, int gridSize)
         
         // Generate a type
         TerrainType type = rand() % 2;
-        
-        TerrainObject object = TerrainObject(x, y, z, size, type);
+                
+        TerrainObject object = TerrainObject(x,
+                                             y,
+                                             z,
+                                             size,
+                                             type);
         objects.push_back(object);
+    }
+}
+
+void TerrainManager::renderTerrain()
+{
+    objectIterator = objects.begin();
+    while (objectIterator != objects.end()) {
+        objectIterator->renderObject();
+        objectIterator++;
     }
 }

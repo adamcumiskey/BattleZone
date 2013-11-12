@@ -34,20 +34,21 @@ TerrainObject::TerrainObject(GLfloat x,
     
     switch (type) {
         case Rock:
-            glutWireCube(size);
-            break;
-            
-            case Tree:
             glPushMatrix();
-            //glScalef(size, size, size);
+            glScalef(size, size, size);
             glutWireIcosahedron();
             glPopMatrix();
+            break;
+            
+        case Tree:
+            glutWireOctahedron();
             break;
             
         default:
             break;
     }
     glEndList();
+    
     
     // Store the displayList and position
     displayList = index;

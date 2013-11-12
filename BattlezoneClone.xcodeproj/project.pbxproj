@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6206443F1831B20F0090DAB3 /* QuadTree.cpp */; };
+		6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 620644491831B90F0090DAB3 /* BoundingBox.cpp */; };
+		6206444D1831BA110090DAB3 /* Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = 6206444C1831B9330090DAB3 /* Constants.h */; };
 		62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE09B182B0DA4008C2DBA /* main.cpp */; };
 		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
 		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
@@ -28,6 +31,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6206443F1831B20F0090DAB3 /* QuadTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuadTree.cpp; sourceTree = "<group>"; };
+		620644401831B20F0090DAB3 /* QuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTree.h; sourceTree = "<group>"; };
+		620644491831B90F0090DAB3 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
+		6206444A1831B90F0090DAB3 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
+		6206444C1831B9330090DAB3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		62FDE098182B0DA4008C2DBA /* BattlezoneClone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattlezoneClone; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FDE09B182B0DA4008C2DBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -53,6 +61,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6206443E1831B2020090DAB3 /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				620644401831B20F0090DAB3 /* QuadTree.h */,
+				6206443F1831B20F0090DAB3 /* QuadTree.cpp */,
+			);
+			name = QuadTree;
+			sourceTree = "<group>";
+		};
+		620644481831B9020090DAB3 /* BoundingBox */ = {
+			isa = PBXGroup;
+			children = (
+				6206444A1831B90F0090DAB3 /* BoundingBox.h */,
+				620644491831B90F0090DAB3 /* BoundingBox.cpp */,
+			);
+			name = BoundingBox;
+			sourceTree = "<group>";
+		};
 		62FDE08F182B0DA4008C2DBA = {
 			isa = PBXGroup;
 			children = (
@@ -74,9 +100,10 @@
 		62FDE09A182B0DA4008C2DBA /* BattlezoneClone */ = {
 			isa = PBXGroup;
 			children = (
+				6206444C1831B9330090DAB3 /* Constants.h */,
+				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
 				62FDE0B0182C5609008C2DBA /* Terrain */,
-				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 			);
 			path = BattlezoneClone;
 			sourceTree = "<group>";
@@ -102,6 +129,8 @@
 		62FDE0B0182C5609008C2DBA /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
+				620644481831B9020090DAB3 /* BoundingBox */,
+				6206443E1831B2020090DAB3 /* QuadTree */,
 				62FDE0B1182C5612008C2DBA /* TerrainManager */,
 				62FDE0AC182C55E6008C2DBA /* TerrainObject */,
 			);
@@ -168,8 +197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6206444D1831BA110090DAB3 /* Constants.h in Sources */,
+				620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */,
 				62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */,
 				62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */,
+				6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */,
 				62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */,
 				62FDE0B4182C5620008C2DBA /* TerrainManager.cpp in Sources */,
 			);
@@ -281,6 +313,7 @@
 				62FDE0A3182B0DA5008C2DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

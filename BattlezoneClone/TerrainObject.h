@@ -30,7 +30,7 @@ PositionStruct Position(GLfloat x,
 
 enum {
     Rock,
-    Tree
+    Tree,
 }; typedef int TerrainType;
 
 class TerrainObject
