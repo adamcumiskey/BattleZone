@@ -5,6 +5,9 @@
 //  Created by Adam Cumiskey on 11/11/13.
 //  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
 //
+//  Based on http://gamedev.tutsplus.com/tutorials/implementation/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space/
+//
+//  Data structure to recursively partition 2d space
 
 #ifndef __BattlezoneClone__QuadTree__
 #define __BattlezoneClone__QuadTree__
@@ -23,10 +26,22 @@
 class QuadTree
 {
 private:
-    std::vector<TerrainObject> objects;
-    int level;
-    QuadTree *nodes[4]; // pointer to the array of the 4 nodes of this quad
+    std::vector<TerrainObject> _objects;
+    std::vector<TerrainObject>::iterator _objectsIterator;
+    
+    int _level;
+    BoundingBox _bounds;
+    QuadTree *_nodes[4]; // pointer to the array of the 4 nodes of this quad
+    
+    void split(); // Split a node into 4 subnodes
+    int getIndex(TerrainObject object); // Determine the node that the object is in
+    BoundingBox getBounds();
     
 public:
+    QuadTree();
+    QuadTree(int level, BoundingBox bounds);
+    ~QuadTree();
     
+    void insert(TerrainObject object);
+    void clear(); // Clears the QuadTree
 };

@@ -8,7 +8,8 @@
 //  Defines a 2d rectangle and defines methods for checking
 //  weather it intersects with another rectangle. Every object
 //  that is collidable will have a bounding box associated with it
-//  to check collisions.
+//  to check collisions. In addition, is used to define the box that
+//  defines each node of the QuadTree data structure
 
 #ifndef __BattlezoneClone__BoundingBox__
 #define __BattlezoneClone__BoundingBox__
@@ -24,6 +25,7 @@ private:
     Point2d _topRight, _bottomLeft, _topLeft, _bottomRight;
     
 public:
+    BoundingBox();
     BoundingBox(Point2d topRight,
                 Point2d bottomLeft);
     
@@ -32,4 +34,10 @@ public:
     
     // Return true if the two boxes intersect at any point
     bool intersects(BoundingBox box);
+    
+    // Getters for the width and height and position of the box
+    GLfloat getWidth();
+    GLfloat getHeight();
+    GLfloat getX();
+    GLfloat getY();
 };

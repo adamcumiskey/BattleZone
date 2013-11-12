@@ -12,6 +12,7 @@
 #define __BattlezoneClone__TerrainObject__
 
 #include <iostream>
+#include "BoundingBox.h"
 
 #endif /* defined(__BattlezoneClone__TerrainObject__) */
 
@@ -36,8 +37,9 @@ enum {
 class TerrainObject
 {
 private:
-    PositionStruct position;
-    GLuint displayList;
+    PositionStruct _position;
+    GLuint _displayList;
+    BoundingBox _bounds;
     
 public:
     TerrainObject(GLfloat x,
@@ -47,4 +49,5 @@ public:
                   TerrainType type);
     
     void renderObject();
+    BoundingBox getBounds();
 };

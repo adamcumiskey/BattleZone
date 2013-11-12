@@ -8,6 +8,11 @@
 
 #include "BoundingBox.h"
 
+BoundingBox::BoundingBox()
+{
+    // default constructor
+}
+
 BoundingBox::BoundingBox(Point2d topRight,
                          Point2d bottomLeft)
 {
@@ -41,4 +46,24 @@ bool BoundingBox::intersects(BoundingBox box)
                box.containsPoint(_bottomRight)) {
         return true;
     } else return false;
+}
+
+GLfloat BoundingBox::getWidth()
+{
+    return _topRight.x - _topLeft.x;
+}
+
+GLfloat BoundingBox::getHeight()
+{
+    return _topRight.y - _bottomRight.y;
+}
+
+GLfloat BoundingBox::getX()
+{
+    return _bottomLeft.x;
+}
+
+GLfloat BoundingBox::getY()
+{
+    return _bottomLeft.y;
 }

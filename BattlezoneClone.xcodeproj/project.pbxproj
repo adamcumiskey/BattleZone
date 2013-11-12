@@ -79,6 +79,15 @@
 			name = BoundingBox;
 			sourceTree = "<group>";
 		};
+		6206444E1831EF9A0090DAB3 /* Colliision Logic */ = {
+			isa = PBXGroup;
+			children = (
+				620644481831B9020090DAB3 /* BoundingBox */,
+				6206443E1831B2020090DAB3 /* QuadTree */,
+			);
+			name = "Colliision Logic";
+			sourceTree = "<group>";
+		};
 		62FDE08F182B0DA4008C2DBA = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +112,7 @@
 				6206444C1831B9330090DAB3 /* Constants.h */,
 				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
+				6206444E1831EF9A0090DAB3 /* Colliision Logic */,
 				62FDE0B0182C5609008C2DBA /* Terrain */,
 			);
 			path = BattlezoneClone;
@@ -129,8 +139,6 @@
 		62FDE0B0182C5609008C2DBA /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
-				620644481831B9020090DAB3 /* BoundingBox */,
-				6206443E1831B2020090DAB3 /* QuadTree */,
 				62FDE0B1182C5612008C2DBA /* TerrainManager */,
 				62FDE0AC182C55E6008C2DBA /* TerrainObject */,
 			);

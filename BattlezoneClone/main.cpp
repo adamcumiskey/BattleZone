@@ -100,11 +100,12 @@ void keyInput(unsigned char key, int x, int y)
 
 void printInteraction()
 {
-    
+    std::cout << "Use WASD to move the tank" << std::endl;
 }
 
 int main(int argc, char **argv)
 {
+    printInteraction();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1000, 500);

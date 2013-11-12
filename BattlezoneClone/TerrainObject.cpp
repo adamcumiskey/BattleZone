@@ -30,7 +30,7 @@ TerrainObject::TerrainObject(GLfloat x,
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
     glColor3f(0.0, 0.0, 1.0);
-    glTranslatef(position.x, position.y, position.z);
+    glTranslatef(_position.x, _position.y, _position.z);
     
     switch (type) {
         case Rock:
@@ -51,11 +51,16 @@ TerrainObject::TerrainObject(GLfloat x,
     
     
     // Store the displayList and position
-    displayList = index;
-    position = Position(x, y, z);
+    _displayList = index;
+    _position = Position(x, y, z);
 }
 
 void TerrainObject::renderObject()
 {
-    glCallList(displayList);
+    glCallList(_displayList);
+}
+
+BoundingBox TerrainObject::getBounds()
+{
+    return _bounds;
 }
