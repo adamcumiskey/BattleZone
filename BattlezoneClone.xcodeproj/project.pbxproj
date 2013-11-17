@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6206443F1831B20F0090DAB3 /* QuadTree.cpp */; };
 		6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 620644491831B90F0090DAB3 /* BoundingBox.cpp */; };
-		6206444D1831BA110090DAB3 /* Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = 6206444C1831B9330090DAB3 /* Constants.h */; };
 		62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE09B182B0DA4008C2DBA /* main.cpp */; };
 		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
 		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
@@ -35,7 +34,6 @@
 		620644401831B20F0090DAB3 /* QuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTree.h; sourceTree = "<group>"; };
 		620644491831B90F0090DAB3 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
 		6206444A1831B90F0090DAB3 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
-		6206444C1831B9330090DAB3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		62FDE098182B0DA4008C2DBA /* BattlezoneClone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattlezoneClone; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FDE09B182B0DA4008C2DBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -109,7 +107,6 @@
 		62FDE09A182B0DA4008C2DBA /* BattlezoneClone */ = {
 			isa = PBXGroup;
 			children = (
-				6206444C1831B9330090DAB3 /* Constants.h */,
 				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
 				6206444E1831EF9A0090DAB3 /* Colliision Logic */,
@@ -205,7 +202,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6206444D1831BA110090DAB3 /* Constants.h in Sources */,
 				620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */,
 				62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */,
 				62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */,

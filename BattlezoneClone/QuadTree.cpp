@@ -7,17 +7,50 @@
 //
 
 #include "QuadTree.h"
+#include "BoundingBox.h"
+#include "TerrainObject.h"
 
 #pragma mark - Public Methods
 QuadTree::QuadTree(int level, BoundingBox bounds)
 {
     _level = level;
-    _bounds = bounds;
+    _bounds = &bounds;
 }
 
 void QuadTree::insert(TerrainObject object)
 {
-    
+    if (_nodes[0] != NULL) {
+        int index = getIndex(object);
+        
+        // Recursively insert the object until it doesn't
+        // fit in any more quads
+        if (index != -1) {
+            _nodes[index]->insert(object);
+            return;
+        }
+        _items->push_back(object);
+        
+        // If a node's capacity is exceded, split the quad
+        // and add all of the objects
+        if (_items->size() > MAX_OBJECTS && _level < MAX_LEVELS) {
+            if (_nodes[0] == NULL) {
+                split();
+            }
+            
+            std::vector<TerrainObject>::iterator objectsIterator;
+            objectsIterator = _items->begin();
+            while (objectsIterator != _items->end()) {
+                int index = getIndex(*objectsIterator);
+                if (index != -1) {
+                    TerrainObject object = _items->at(objectsIterator - _items->begin());
+                    _items->erase(objectsIterator);
+                    _nodes[index]->insert(object);
+                } else {
+                    objectsIterator++;
+                }
+            }
+        }
+    }
 }
 
 void QuadTree::clear()
@@ -34,10 +67,10 @@ void QuadTree::clear()
 #pragma mark - Private Methods
 void QuadTree::split()
 {
-    int width = (int)(_bounds.getWidth()/2);
-    int height = (int)(_bounds.getHeight()/2);
-    int x = (int)_bounds.getX();
-    int y = (int)_bounds.getY();
+    int width = (int)(_bounds->getWidth()/2);
+    int height = (int)(_bounds->getHeight()/2);
+    int x = (int)_bounds->getX();
+    int y = (int)_bounds->getY();
     
     // Create a new quadtree for each quadrant
     
@@ -61,8 +94,8 @@ void QuadTree::split()
 
 int QuadTree::getIndex(TerrainObject object)
 {
-    double verticalMidpoint = _bounds.getX() + (_bounds.getWidth()/2);
-    double horizontalMidpoint = _bounds.getY() + (_bounds.getHeight()/2);
+    double verticalMidpoint = _bounds->getX() + (_bounds->getWidth()/2);
+    double horizontalMidpoint = _bounds->getY() + (_bounds->getHeight()/2);
     
     bool topQuadrant = (object.getBounds().getY() > horizontalMidpoint);
     bool bottomQuadrant = (object.getBounds().getY() < horizontalMidpoint &&
@@ -85,7 +118,7 @@ int QuadTree::getIndex(TerrainObject object)
 
 BoundingBox QuadTree::getBounds()
 {
-    return _bounds;
+    return *_bounds;
 }
 
 QuadTree::~QuadTree()

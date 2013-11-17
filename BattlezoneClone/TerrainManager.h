@@ -17,17 +17,26 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
-#include "TerrainObject.h"
 
 #endif /* defined(__BattlezoneClone__TerrainManager__) */
 
-
+class TerrainObject;
+class QuadTree;
+class BoundingBox;
 class TerrainManager
 {
     
 private:
-    std::vector<TerrainObject> objects;
-    std::vector<TerrainObject>::iterator objectIterator;
+    std::vector<TerrainObject *> _objects;
+    
+    // Quad tree for storing the points
+    QuadTree *quadTree;
+    
+    // Bounding box that stores the map
+    BoundingBox *boundingBox;
+    
+    // Draws an infinite plane
+    void drawGround();
     
 public:
     // Empty constructor.

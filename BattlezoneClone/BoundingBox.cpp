@@ -8,6 +8,16 @@
 
 #include "BoundingBox.h"
 
+Point2d createPoint2d(float x, float y)
+{
+    Point2d temp;
+    temp.x = x;
+    temp.y = y;
+    return temp;
+}
+/* ----------------- */
+
+#pragma mark - Constructors
 BoundingBox::BoundingBox()
 {
     // default constructor
@@ -22,6 +32,16 @@ BoundingBox::BoundingBox(Point2d topRight,
     _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
 }
 
+BoundingBox::BoundingBox(float x1, float y1,
+                         float x2, float y2)
+{
+    _topRight = createPoint2d(x1, y1);
+    _bottomLeft = createPoint2d(x2, y2);
+    _topLeft = createPoint2d(_bottomLeft.x, _topRight.y);
+    _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
+}
+
+#pragma mark - Collition detection
 bool BoundingBox::containsPoint(Point2d point)
 {
     if (point.x <= _topRight.x &&
@@ -48,22 +68,23 @@ bool BoundingBox::intersects(BoundingBox box)
     } else return false;
 }
 
-GLfloat BoundingBox::getWidth()
+#pragma mark - Getters for postition and size
+float BoundingBox::getWidth()
 {
     return _topRight.x - _topLeft.x;
 }
 
-GLfloat BoundingBox::getHeight()
+float BoundingBox::getHeight()
 {
     return _topRight.y - _bottomRight.y;
 }
 
-GLfloat BoundingBox::getX()
+float BoundingBox::getX()
 {
     return _bottomLeft.x;
 }
 
-GLfloat BoundingBox::getY()
+float BoundingBox::getY()
 {
     return _bottomLeft.y;
 }

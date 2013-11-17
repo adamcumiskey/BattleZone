@@ -7,6 +7,7 @@
 //
 
 #include "TerrainObject.h"
+#include "BoundingBox.h"
 
 // setter for position struct
 PositionStruct Position(GLfloat x,
@@ -26,6 +27,10 @@ TerrainObject::TerrainObject(GLfloat x,
                              GLdouble size,
                              TerrainType type)
 {
+    // set the position
+    _position = Position(x, y, z);
+    _bounds = new BoundingBox(x+.25, z+.25, x-.25, z-.25);
+    
     // Store the object in a displayList
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
@@ -49,10 +54,8 @@ TerrainObject::TerrainObject(GLfloat x,
     }
     glEndList();
     
-    
-    // Store the displayList and position
+    // Store the displayList
     _displayList = index;
-    _position = Position(x, y, z);
 }
 
 void TerrainObject::renderObject()
@@ -62,5 +65,5 @@ void TerrainObject::renderObject()
 
 BoundingBox TerrainObject::getBounds()
 {
-    return _bounds;
+    return *_bounds;
 }

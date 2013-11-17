@@ -32,20 +32,6 @@ void setup()
     terrainManager.generateObjects(100, 50);
 }
 
-void drawGround()
-{
-    // Draw 4 triangles from the origin with
-    // 4 unit vertecies located at infinity
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex4f(0, 0, 0, 1);
-    glVertex4f(1, 0, 0, 0);
-    glVertex4f(0, 0, 1, 0);
-    glVertex4f(-1, 0, 0, 0);
-    glVertex4f(0, 0, -1, 0);
-    glVertex4f(1, 0, 0, 0);
-    glEnd();
-}
-
 void drawScene()
 {
     glPolygonMode(GL_BACK, GL_FILL);
@@ -55,8 +41,6 @@ void drawScene()
 
     // Draw the camera
     Camera.Render();
-    
-    drawGround();
     
     terrainManager.renderTerrain();
     

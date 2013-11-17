@@ -15,7 +15,12 @@
 #define __BattlezoneClone__BoundingBox__
 
 #include <iostream>
-#include "Constants.h"
+
+/* Coordinate struct */
+struct Point2d {
+    float x, y;
+};
+Point2d createPoint2d(float x, float y);
 
 #endif /* defined(__BattlezoneClone__BoundingBox__) */
 
@@ -28,6 +33,8 @@ public:
     BoundingBox();
     BoundingBox(Point2d topRight,
                 Point2d bottomLeft);
+    BoundingBox(float x1, float y1,
+                float x2, float y2);
     
     // Return true if the point is within the bounding box
     bool containsPoint(Point2d point);
@@ -36,8 +43,8 @@ public:
     bool intersects(BoundingBox box);
     
     // Getters for the width and height and position of the box
-    GLfloat getWidth();
-    GLfloat getHeight();
-    GLfloat getX();
-    GLfloat getY();
+    float getWidth();
+    float getHeight();
+    float getX();
+    float getY();
 };

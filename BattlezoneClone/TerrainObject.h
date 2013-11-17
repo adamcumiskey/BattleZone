@@ -12,7 +12,6 @@
 #define __BattlezoneClone__TerrainObject__
 
 #include <iostream>
-#include "BoundingBox.h"
 
 #endif /* defined(__BattlezoneClone__TerrainObject__) */
 
@@ -34,12 +33,13 @@ enum {
     Tree,
 }; typedef int TerrainType;
 
+class BoundingBox;
 class TerrainObject
 {
 private:
     PositionStruct _position;
     GLuint _displayList;
-    BoundingBox _bounds;
+    BoundingBox *_bounds;
     
 public:
     TerrainObject(GLfloat x,

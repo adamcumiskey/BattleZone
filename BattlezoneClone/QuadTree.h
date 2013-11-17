@@ -14,7 +14,6 @@
 
 #include <iostream>
 #include <vector>
-#include "TerrainObject.h"
 
 #endif /* defined(__BattlezoneClone__QuadTree__) */
 
@@ -22,15 +21,15 @@
 #define MAX_OBJECTS 10
 #define MAX_LEVELS 5
 
-
+class BoundingBox;
+class TerrainObject;
 class QuadTree
 {
 private:
-    std::vector<TerrainObject> _objects;
-    std::vector<TerrainObject>::iterator _objectsIterator;
+    std::vector<TerrainObject> *_items;
     
     int _level;
-    BoundingBox _bounds;
+    BoundingBox *_bounds;
     QuadTree *_nodes[4]; // pointer to the array of the 4 nodes of this quad
     
     void split(); // Split a node into 4 subnodes
