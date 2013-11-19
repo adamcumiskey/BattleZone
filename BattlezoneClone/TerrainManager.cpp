@@ -24,9 +24,8 @@ TerrainManager::TerrainManager()
 
 void TerrainManager::generateObjects(int n, int gridSize)
 {
-    boundingBox = new BoundingBox(25.0f, 25.0f, -25.0f, -25.0f);
-    quadTree = new QuadTree(0, *boundingBox);
-    
+    _boundingBox = new BoundingBox(25.0f, 25.0f, -25.0f, -25.0f);
+    _quadTree = new QuadTree(0, *_boundingBox);
     
     for (int i = 0; i < n; i++) {
         
@@ -49,8 +48,6 @@ void TerrainManager::generateObjects(int n, int gridSize)
                                              size,
                                              type);
         _objects.push_back(object);
-        
-        quadTree->insert(*object);
     }
 }
 
@@ -66,11 +63,37 @@ void TerrainManager::renderTerrain()
     }
 }
 
+void TerrainManager::checkCollisions()
+{
+    // Clear the current tree
+    _quadTree->clear();
+    
+    // Insert all of objects back into the tree
+    std::vector<TerrainObject *>::iterator it = _objects.begin();
+    while (it != _objects.end()) {
+        TerrainObject object = *_objects.at(it - _objects.begin());
+        _quadTree->insert(object);
+        it++;
+    }
+    
+    // Return a list of all of the potential collitions
+    std::vector<TerrainObject *> collidableObjects;
+    it = _objects.begin(); // reset the iterator
+    while (it != _objects.end()) {
+        collidableObjects.clear();
+        
+        TerrainObject object = *_objects.at(it - _objects.begin());
+        _quadTree->retrieve(collidableObjects, object);
+        it++;
+    }
+}
+
 void TerrainManager::drawGround()
 {
     // Draw 4 triangles from the origin with
     // 4 unit vertecies located at infinity
     glBegin(GL_TRIANGLE_FAN);
+    glColor3f(0.0, 1.0, 0.0);
     glVertex4f(0, 0, 0, 1);
     glVertex4f(1, 0, 0, 0);
     glVertex4f(0, 0, 1, 0);
@@ -78,4 +101,12 @@ void TerrainManager::drawGround()
     glVertex4f(0, 0, -1, 0);
     glVertex4f(1, 0, 0, 0);
     glEnd();
+}
+
+#pragma mark - Destructor
+TerrainManager::~TerrainManager()
+{
+    delete _quadTree;
+    delete _boundingBox;
+    delete &_objects;
 }

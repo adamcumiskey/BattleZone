@@ -26,7 +26,7 @@ class TerrainObject;
 class QuadTree
 {
 private:
-    std::vector<TerrainObject> *_items;
+    std::vector<TerrainObject *> _items;
     
     int _level;
     BoundingBox *_bounds;
@@ -41,6 +41,12 @@ public:
     QuadTree(int level, BoundingBox bounds);
     ~QuadTree();
     
+    // Insert a new object into the tree
     void insert(TerrainObject object);
+    
+    // Retreive a vector of all the possible collision objects
+    std::vector<TerrainObject *> retrieve(std::vector<TerrainObject *> returnObjects,
+                                          TerrainObject object);
+    
     void clear(); // Clears the QuadTree
 };

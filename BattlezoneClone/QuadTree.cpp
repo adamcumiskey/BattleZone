@@ -28,22 +28,22 @@ void QuadTree::insert(TerrainObject object)
             _nodes[index]->insert(object);
             return;
         }
-        _items->push_back(object);
+        _items.push_back(&object);
         
         // If a node's capacity is exceded, split the quad
         // and add all of the objects
-        if (_items->size() > MAX_OBJECTS && _level < MAX_LEVELS) {
+        if (_items.size() > MAX_OBJECTS && _level < MAX_LEVELS) {
             if (_nodes[0] == NULL) {
                 split();
             }
             
-            std::vector<TerrainObject>::iterator objectsIterator;
-            objectsIterator = _items->begin();
-            while (objectsIterator != _items->end()) {
-                int index = getIndex(*objectsIterator);
+            std::vector<TerrainObject *>::iterator objectsIterator;
+            objectsIterator = _items.begin();
+            while (objectsIterator != _items.end()) {
+                TerrainObject object = *_items.at(objectsIterator - _items.begin());
+                int index = getIndex(object);
                 if (index != -1) {
-                    TerrainObject object = _items->at(objectsIterator - _items->begin());
-                    _items->erase(objectsIterator);
+                    _items.erase(objectsIterator);
                     _nodes[index]->insert(object);
                 } else {
                     objectsIterator++;
@@ -51,6 +51,21 @@ void QuadTree::insert(TerrainObject object)
             }
         }
     }
+}
+
+std::vector<TerrainObject *> QuadTree::retrieve(std::vector<TerrainObject *> returnObjects,
+                        TerrainObject object)
+{
+    // Recursively find all of the objects that reside in the same node as the object
+    int index = getIndex(object);
+    if (index != -1 && _nodes[0] != NULL) {
+        _nodes[index]->retrieve(returnObjects, object);
+    }
+    
+    std::vector<TerrainObject *>::iterator it;
+    returnObjects.insert(it, _items.begin(), _items.end());
+    
+    return returnObjects;
 }
 
 void QuadTree::clear()

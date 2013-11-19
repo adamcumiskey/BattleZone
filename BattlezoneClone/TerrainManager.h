@@ -30,10 +30,13 @@ private:
     std::vector<TerrainObject *> _objects;
     
     // Quad tree for storing the points
-    QuadTree *quadTree;
+    QuadTree *_quadTree;
     
     // Bounding box that stores the map
-    BoundingBox *boundingBox;
+    BoundingBox *_boundingBox;
+    
+    // Inserts all objects into the quadTree and checks to see if there are any collisions
+    void checkCollisions();
     
     // Draws an infinite plane
     void drawGround();
@@ -41,6 +44,8 @@ private:
 public:
     // Empty constructor.
     TerrainManager();
+    // Destructor
+    ~TerrainManager();
     
     // Randomly generate n objects within an n*n grid
     void generateObjects(int n, int gridSize);
