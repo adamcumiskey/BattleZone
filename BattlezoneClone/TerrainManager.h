@@ -7,7 +7,7 @@
 //
 //  This class generate the terrain and has a vector containing
 //  all of the terrain primitives. generateObjects() should be
-//  called within main to randomly generate the objects, and
+//  called within the setup of main to randomly generate the objects, and
 //  renderTerrain() should be called in the displayFuntion to
 //  draw each object
 

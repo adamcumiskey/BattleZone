@@ -9,7 +9,10 @@
 //  weather it intersects with another rectangle. Every object
 //  that is collidable will have a bounding box associated with it
 //  to check collisions. In addition, is used to define the box that
-//  defines each node of the QuadTree data structure
+//  defines each node of the QuadTree data structure. I may need to
+//  rethink that later, as I may want the bounding box to be a property
+//  of an abstract Collidable class which all my collidible objects will
+//  subclass.
 
 #ifndef __BattlezoneClone__BoundingBox__
 #define __BattlezoneClone__BoundingBox__

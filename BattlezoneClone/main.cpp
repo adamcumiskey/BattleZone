@@ -39,8 +39,12 @@ void drawScene()
     glLoadIdentity();
 
     // Draw the camera
-    Camera.Render();
+    // This class will eventually be removed, as the camera
+		// will be attached to the player class which will control
+		// movement.
+		Camera.Render();
     
+		// Render the terrain
     terrainManager.renderTerrain();
     
     glutSwapBuffers();

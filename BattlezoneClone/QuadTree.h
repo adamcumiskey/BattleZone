@@ -8,6 +8,9 @@
 //  Based on http://gamedev.tutsplus.com/tutorials/implementation/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space/
 //
 //  Data structure to recursively partition 2d space
+//  This class will be used to check the collisions of
+//  all the collidable objects.
+
 
 #ifndef __BattlezoneClone__QuadTree__
 #define __BattlezoneClone__QuadTree__

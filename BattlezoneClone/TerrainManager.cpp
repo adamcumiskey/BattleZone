@@ -24,6 +24,8 @@ TerrainManager::TerrainManager()
 
 void TerrainManager::generateObjects(int n, int gridSize)
 {
+		// Construct the quadtree with the same bounding box as the terrain
+		// I need to change this from using hard coded values.
     _boundingBox = new BoundingBox(25.0f, 25.0f, -25.0f, -25.0f);
     _quadTree = new QuadTree(0, *_boundingBox);
     
@@ -63,6 +65,12 @@ void TerrainManager::renderTerrain()
     }
 }
 
+// Haven't got this to work yet. I need to recheck my pointer
+// logic in the quadtree class.
+// I also think that this function doesn't belong in this class
+// I should be able to construct a const QuadTree for all of the
+// terrain objects and check collisions for moving objects against
+// that.
 void TerrainManager::checkCollisions()
 {
     // Clear the current tree
