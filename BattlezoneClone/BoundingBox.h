@@ -25,8 +25,6 @@ struct Point2d {
 };
 Point2d createPoint2d(float x, float y);
 
-#endif /* defined(__BattlezoneClone__BoundingBox__) */
-
 class BoundingBox
 {
 private:
@@ -51,3 +49,6 @@ public:
     float getX();
     float getY();
 };
+
+#endif /* defined(__BattlezoneClone__BoundingBox__) */
+

@@ -101,7 +101,7 @@ void TerrainManager::drawGround()
     // Draw 4 triangles from the origin with
     // 4 unit vertecies located at infinity
     glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.0, 1.0, 0.0);
+    glColor3f(0.0, 0.75, 0.0);
     glVertex4f(0, 0, 0, 1);
     glVertex4f(1, 0, 0, 0);
     glVertex4f(0, 0, 1, 0);

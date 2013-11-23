@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6206443F1831B20F0090DAB3 /* QuadTree.cpp */; };
 		6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 620644491831B90F0090DAB3 /* BoundingBox.cpp */; };
+		628E8C3E184138FC000F8E20 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628E8C3C184138FC000F8E20 /* Enemy.cpp */; };
+		628E8C4118413918000F8E20 /* EnemyManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628E8C3F18413918000F8E20 /* EnemyManager.cpp */; };
 		62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE09B182B0DA4008C2DBA /* main.cpp */; };
 		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
 		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
@@ -34,6 +36,10 @@
 		620644401831B20F0090DAB3 /* QuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTree.h; sourceTree = "<group>"; };
 		620644491831B90F0090DAB3 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
 		6206444A1831B90F0090DAB3 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
+		628E8C3C184138FC000F8E20 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
+		628E8C3D184138FC000F8E20 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		628E8C3F18413918000F8E20 /* EnemyManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyManager.cpp; sourceTree = "<group>"; };
+		628E8C4018413918000F8E20 /* EnemyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyManager.h; sourceTree = "<group>"; };
 		62FDE098182B0DA4008C2DBA /* BattlezoneClone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattlezoneClone; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FDE09B182B0DA4008C2DBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -86,6 +92,33 @@
 			name = "Colliision Logic";
 			sourceTree = "<group>";
 		};
+		628E8C3B184138E2000F8E20 /* NPC */ = {
+			isa = PBXGroup;
+			children = (
+				628E8C421841392A000F8E20 /* Enemy Manager */,
+				628E8C4318413935000F8E20 /* Enemy */,
+			);
+			name = NPC;
+			sourceTree = "<group>";
+		};
+		628E8C421841392A000F8E20 /* Enemy Manager */ = {
+			isa = PBXGroup;
+			children = (
+				628E8C4018413918000F8E20 /* EnemyManager.h */,
+				628E8C3F18413918000F8E20 /* EnemyManager.cpp */,
+			);
+			name = "Enemy Manager";
+			sourceTree = "<group>";
+		};
+		628E8C4318413935000F8E20 /* Enemy */ = {
+			isa = PBXGroup;
+			children = (
+				628E8C3D184138FC000F8E20 /* Enemy.h */,
+				628E8C3C184138FC000F8E20 /* Enemy.cpp */,
+			);
+			name = Enemy;
+			sourceTree = "<group>";
+		};
 		62FDE08F182B0DA4008C2DBA = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +140,7 @@
 		62FDE09A182B0DA4008C2DBA /* BattlezoneClone */ = {
 			isa = PBXGroup;
 			children = (
+				628E8C3B184138E2000F8E20 /* NPC */,
 				62FDE09B182B0DA4008C2DBA /* main.cpp */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
 				6206444E1831EF9A0090DAB3 /* Colliision Logic */,
@@ -204,6 +238,8 @@
 			files = (
 				620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */,
 				62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */,
+				628E8C4118413918000F8E20 /* EnemyManager.cpp in Sources */,
+				628E8C3E184138FC000F8E20 /* Enemy.cpp in Sources */,
 				62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */,
 				6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */,
 				62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */,

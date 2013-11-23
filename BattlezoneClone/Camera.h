@@ -12,7 +12,6 @@
 
 #include <iostream>
 
-#endif /* defined(__BattlezoneClone__Camera__) */
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -54,7 +53,6 @@ public:
 	void MoveForward ( GLfloat Distance );
 	void MoveUpward ( GLfloat Distance );
 	void StrafeRight ( GLfloat Distance );
-    
-    
-    
 };
+
+#endif /* defined(__BattlezoneClone__Camera__) */

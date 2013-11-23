@@ -18,9 +18,6 @@
 #include <iostream>
 #include <vector>
 
-#endif /* defined(__BattlezoneClone__QuadTree__) */
-
-
 #define MAX_OBJECTS 10
 #define MAX_LEVELS 5
 
@@ -53,3 +50,5 @@ public:
     
     void clear(); // Clears the QuadTree
 };
+
+#endif /* defined(__BattlezoneClone__QuadTree__) */

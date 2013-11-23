@@ -9,6 +9,12 @@
 #include "TerrainObject.h"
 #include "BoundingBox.h"
 
+#ifdef __APPLE__
+#  include <GLUT/glut.h>
+#else
+#  include <GL/glut.h>
+#endif
+
 // setter for position struct
 PositionStruct Position(GLfloat x,
                         GLfloat y,

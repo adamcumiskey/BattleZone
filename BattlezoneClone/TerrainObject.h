@@ -13,20 +13,12 @@
 
 #include <iostream>
 
-#endif /* defined(__BattlezoneClone__TerrainObject__) */
-
-#ifdef __APPLE__
-#  include <GLUT/glut.h>
-#else
-#  include <GL/glut.h>
-#endif
-
 struct PositionStruct {
-    GLfloat x, y, z;
+    float x, y, z;
 };
-PositionStruct Position(GLfloat x,
-                        GLfloat y,
-                        GLfloat z);
+PositionStruct Position(float x,
+                        float y,
+                        float z);
 
 enum {
     Rock,
@@ -38,16 +30,18 @@ class TerrainObject
 {
 private:
     PositionStruct _position;
-    GLuint _displayList;
+    int _displayList;
     BoundingBox *_bounds;
     
 public:
-    TerrainObject(GLfloat x,
-                  GLfloat y,
-                  GLfloat z,
-                  GLdouble size,
+    TerrainObject(float x,
+                  float y,
+                  float z,
+                  double size,
                   TerrainType type);
     
     void renderObject();
     BoundingBox getBounds();
 };
+
+#endif /* defined(__BattlezoneClone__TerrainObject__) */

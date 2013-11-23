@@ -18,8 +18,6 @@
 #include <math.h>
 #include <vector>
 
-#endif /* defined(__BattlezoneClone__TerrainManager__) */
-
 class TerrainObject;
 class QuadTree;
 class BoundingBox;
@@ -54,3 +52,5 @@ public:
     // renderObject() method
     void renderTerrain();
 };
+
+#endif /* defined(__BattlezoneClone__TerrainManager__) */
