@@ -11,10 +11,10 @@
 #include "TerrainObject.h"
 
 #pragma mark - Public Methods
-QuadTree::QuadTree(int level, BoundingBox bounds)
+QuadTree::QuadTree(int level, BoundingBox *bounds)
 {
     _level = level;
-    _bounds = &bounds;
+    _bounds = bounds;
 }
 
 void QuadTree::insert(TerrainObject object)
@@ -90,19 +90,19 @@ void QuadTree::split()
     // Create a new quadtree for each quadrant
     
     // I
-    _nodes[0] = new QuadTree(_level++, BoundingBox(createPoint2d(width*2, height*2),
+    _nodes[0] = new QuadTree(_level++, new BoundingBox(createPoint2d(width*2, height*2),
                                                    createPoint2d(width, height)));
     
     // II
-    _nodes[1] = new QuadTree(_level++, BoundingBox(createPoint2d(width, height*2),
+    _nodes[1] = new QuadTree(_level++, new BoundingBox(createPoint2d(width, height*2),
                                                    createPoint2d(x, height)));
     
     // III
-    _nodes[2] = new QuadTree(_level++, BoundingBox(createPoint2d(width, height),
+    _nodes[2] = new QuadTree(_level++, new BoundingBox(createPoint2d(width, height),
                                                    createPoint2d(x, y)));
     
     // IV
-    _nodes[3] = new QuadTree(_level++, BoundingBox(createPoint2d(width*2, height),
+    _nodes[3] = new QuadTree(_level++, new BoundingBox(createPoint2d(width*2, height),
                                                    createPoint2d(width, y)));
     
 }

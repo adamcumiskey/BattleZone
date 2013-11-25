@@ -38,7 +38,7 @@ private:
     
 public:
     QuadTree();
-    QuadTree(int level, BoundingBox bounds);
+    QuadTree(int level, BoundingBox *bounds);
     ~QuadTree();
     
     // Insert a new object into the tree

@@ -46,13 +46,16 @@ TerrainObject::TerrainObject(GLfloat x,
     switch (type) {
         case Rock:
             glPushMatrix();
-            glScalef(size, size, size);
-            glutWireIcosahedron();
+            glTranslatef(0, size/2.0f, 0);
+            glutWireCube(size);
             glPopMatrix();
             break;
             
         case Tree:
-            glutWireOctahedron();
+            glPushMatrix();
+            glRotatef(90, -1, 0, 0);
+            glutWireCone(size, size*2, 4, 1);
+            glPopMatrix();
             break;
             
         default:
@@ -66,7 +69,9 @@ TerrainObject::TerrainObject(GLfloat x,
 
 void TerrainObject::renderObject()
 {
+    glPushMatrix();
     glCallList(_displayList);
+    glPopMatrix();
 }
 
 BoundingBox TerrainObject::getBounds()

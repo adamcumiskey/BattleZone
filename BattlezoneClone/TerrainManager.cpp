@@ -27,18 +27,20 @@ void TerrainManager::generateObjects(int n, int gridSize)
 		// Construct the quadtree with the same bounding box as the terrain
 		// I need to change this from using hard coded values.
     _boundingBox = new BoundingBox(25.0f, 25.0f, -25.0f, -25.0f);
-    _quadTree = new QuadTree(0, *_boundingBox);
+    _quadTree = new QuadTree(0, _boundingBox);
     
     for (int i = 0; i < n; i++) {
         
-        // Generate random size between .1 and 1.1
-        GLdouble size = 1;
+        // Generate random size between 1 and 3
+        GLdouble size = (float)(rand() % 3);
         
         // generate random x and z positions within the grid
         GLfloat x = (rand() % gridSize) - (gridSize/2);
         GLfloat z = (rand() % gridSize) - (gridSize/2);
         
-        // set the y to touch the 4ground
+        std::cout << "( " << x << ", " << z << ")" << std::endl;
+        
+        // set the y to touch the ground
         GLfloat y = 0;
         
         // Generate a type

@@ -29,7 +29,7 @@ void setup()
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
     
-    terrainManager.generateObjects(100, 50);
+    terrainManager.generateObjects(100, 300);
 }
 
 void drawScene()
@@ -55,7 +55,7 @@ void resize(int w, int h)
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(25.0f, 2.0, 1, 50);
+    gluPerspective(25.0f, 2.0, 1, 500);
     
     glMatrixMode(GL_MODELVIEW);
 }
