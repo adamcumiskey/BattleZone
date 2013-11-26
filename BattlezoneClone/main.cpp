@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include "Camera.h"
-#include "TerrainManager.h"
+#include "GameManager.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -21,7 +21,7 @@
 #define TABLE_HEIGHT 2000
 
 CCamera Camera(0.0, 0.5, 0.0);
-TerrainManager terrainManager;
+GameManager gameManager;
 
 void setup()
 {
@@ -29,7 +29,7 @@ void setup()
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
     
-    terrainManager.generateObjects(100, 300);
+    gameManager.initializeGame(100, 200);
 }
 
 void drawScene()
@@ -44,8 +44,8 @@ void drawScene()
 		// movement.
 		Camera.Render();
     
-		// Render the terrain
-    terrainManager.renderTerrain();
+    // update the game state
+    gameManager.updateGame();
     
     glutSwapBuffers();
 }

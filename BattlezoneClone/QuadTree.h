@@ -33,7 +33,7 @@ private:
     QuadTree *_nodes[4]; // pointer to the array of the 4 nodes of this quad
     
     void split(); // Split a node into 4 subnodes
-    int getIndex(TerrainObject object); // Determine the node that the object is in
+    int getIndex(TerrainObject *object); // Determine the node that the object is in
     BoundingBox getBounds();
     
 public:
@@ -42,11 +42,11 @@ public:
     ~QuadTree();
     
     // Insert a new object into the tree
-    void insert(TerrainObject object);
+    void insert(TerrainObject *object);
     
     // Retreive a vector of all the possible collision objects
     std::vector<TerrainObject *> retrieve(std::vector<TerrainObject *> returnObjects,
-                                          TerrainObject object);
+                                          TerrainObject *object);
     
     void clear(); // Clears the QuadTree
 };

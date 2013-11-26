@@ -10,13 +10,12 @@
 		620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6206443F1831B20F0090DAB3 /* QuadTree.cpp */; };
 		6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 620644491831B90F0090DAB3 /* BoundingBox.cpp */; };
 		628E8C3E184138FC000F8E20 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628E8C3C184138FC000F8E20 /* Enemy.cpp */; };
-		628E8C4118413918000F8E20 /* EnemyManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628E8C3F18413918000F8E20 /* EnemyManager.cpp */; };
+		62ED175E1844639F004D351D /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62ED175C1844639F004D351D /* GameManager.cpp */; };
 		62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE09B182B0DA4008C2DBA /* main.cpp */; };
 		62FDE0A5182B0DC0008C2DBA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */; };
 		62FDE0A7182B0DC7008C2DBA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDE0A6182B0DC7008C2DBA /* GLUT.framework */; };
 		62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0A9182C4590008C2DBA /* Camera.cpp */; };
 		62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */; };
-		62FDE0B4182C5620008C2DBA /* TerrainManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,8 +37,8 @@
 		6206444A1831B90F0090DAB3 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
 		628E8C3C184138FC000F8E20 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
 		628E8C3D184138FC000F8E20 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
-		628E8C3F18413918000F8E20 /* EnemyManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyManager.cpp; sourceTree = "<group>"; };
-		628E8C4018413918000F8E20 /* EnemyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyManager.h; sourceTree = "<group>"; };
+		62ED175C1844639F004D351D /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
+		62ED175D1844639F004D351D /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		62FDE098182B0DA4008C2DBA /* BattlezoneClone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattlezoneClone; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FDE09B182B0DA4008C2DBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		62FDE0A4182B0DC0008C2DBA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -48,8 +47,6 @@
 		62FDE0AA182C4590008C2DBA /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainObject.cpp; sourceTree = "<group>"; };
 		62FDE0AE182C55FF008C2DBA /* TerrainObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainObject.h; sourceTree = "<group>"; };
-		62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainManager.cpp; sourceTree = "<group>"; };
-		62FDE0B3182C5620008C2DBA /* TerrainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,24 +89,6 @@
 			name = "Colliision Logic";
 			sourceTree = "<group>";
 		};
-		628E8C3B184138E2000F8E20 /* NPC */ = {
-			isa = PBXGroup;
-			children = (
-				628E8C421841392A000F8E20 /* Enemy Manager */,
-				628E8C4318413935000F8E20 /* Enemy */,
-			);
-			name = NPC;
-			sourceTree = "<group>";
-		};
-		628E8C421841392A000F8E20 /* Enemy Manager */ = {
-			isa = PBXGroup;
-			children = (
-				628E8C4018413918000F8E20 /* EnemyManager.h */,
-				628E8C3F18413918000F8E20 /* EnemyManager.cpp */,
-			);
-			name = "Enemy Manager";
-			sourceTree = "<group>";
-		};
 		628E8C4318413935000F8E20 /* Enemy */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +96,15 @@
 				628E8C3C184138FC000F8E20 /* Enemy.cpp */,
 			);
 			name = Enemy;
+			sourceTree = "<group>";
+		};
+		62ED175B18446383004D351D /* GameManager */ = {
+			isa = PBXGroup;
+			children = (
+				62ED175D1844639F004D351D /* GameManager.h */,
+				62ED175C1844639F004D351D /* GameManager.cpp */,
+			);
+			name = GameManager;
 			sourceTree = "<group>";
 		};
 		62FDE08F182B0DA4008C2DBA = {
@@ -141,7 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				62FDE09B182B0DA4008C2DBA /* main.cpp */,
-				628E8C3B184138E2000F8E20 /* NPC */,
+				62ED175B18446383004D351D /* GameManager */,
+				628E8C4318413935000F8E20 /* Enemy */,
 				62FDE0A8182C4579008C2DBA /* Camera */,
 				6206444E1831EF9A0090DAB3 /* Colliision Logic */,
 				62FDE0B0182C5609008C2DBA /* Terrain */,
@@ -158,31 +147,13 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
-		62FDE0AC182C55E6008C2DBA /* TerrainObject */ = {
+		62FDE0B0182C5609008C2DBA /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
 				62FDE0AE182C55FF008C2DBA /* TerrainObject.h */,
 				62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */,
 			);
-			name = TerrainObject;
-			sourceTree = "<group>";
-		};
-		62FDE0B0182C5609008C2DBA /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				62FDE0B1182C5612008C2DBA /* TerrainManager */,
-				62FDE0AC182C55E6008C2DBA /* TerrainObject */,
-			);
 			name = Terrain;
-			sourceTree = "<group>";
-		};
-		62FDE0B1182C5612008C2DBA /* TerrainManager */ = {
-			isa = PBXGroup;
-			children = (
-				62FDE0B3182C5620008C2DBA /* TerrainManager.h */,
-				62FDE0B2182C5620008C2DBA /* TerrainManager.cpp */,
-			);
-			name = TerrainManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,12 +209,11 @@
 			files = (
 				620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */,
 				62FDE0AB182C4590008C2DBA /* Camera.cpp in Sources */,
-				628E8C4118413918000F8E20 /* EnemyManager.cpp in Sources */,
 				628E8C3E184138FC000F8E20 /* Enemy.cpp in Sources */,
 				62FDE09C182B0DA4008C2DBA /* main.cpp in Sources */,
 				6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */,
+				62ED175E1844639F004D351D /* GameManager.cpp in Sources */,
 				62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */,
-				62FDE0B4182C5620008C2DBA /* TerrainManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,13 +11,18 @@
 #include "TerrainObject.h"
 
 #pragma mark - Public Methods
+QuadTree::QuadTree()
+{
+    // blank constructor
+}
+
 QuadTree::QuadTree(int level, BoundingBox *bounds)
 {
     _level = level;
     _bounds = bounds;
 }
 
-void QuadTree::insert(TerrainObject object)
+void QuadTree::insert(TerrainObject *object)
 {
     if (_nodes[0] != NULL) {
         int index = getIndex(object);
@@ -28,7 +33,7 @@ void QuadTree::insert(TerrainObject object)
             _nodes[index]->insert(object);
             return;
         }
-        _items.push_back(&object);
+        _items.push_back(object);
         
         // If a node's capacity is exceded, split the quad
         // and add all of the objects
@@ -40,7 +45,7 @@ void QuadTree::insert(TerrainObject object)
             std::vector<TerrainObject *>::iterator objectsIterator;
             objectsIterator = _items.begin();
             while (objectsIterator != _items.end()) {
-                TerrainObject object = *_items.at(objectsIterator - _items.begin());
+                TerrainObject *object = _items.at(objectsIterator - _items.begin());
                 int index = getIndex(object);
                 if (index != -1) {
                     _items.erase(objectsIterator);
@@ -54,7 +59,7 @@ void QuadTree::insert(TerrainObject object)
 }
 
 std::vector<TerrainObject *> QuadTree::retrieve(std::vector<TerrainObject *> returnObjects,
-                        TerrainObject object)
+                        TerrainObject *object)
 {
     // Recursively find all of the objects that reside in the same node as the object
     int index = getIndex(object);
@@ -74,7 +79,6 @@ void QuadTree::clear()
     for (int i = 0; i < sizeof(*_nodes); i++) {
         if (_nodes[i] != NULL) {
             _nodes[i]->clear();
-            delete _nodes[i];
         }
     }
 }
@@ -107,17 +111,17 @@ void QuadTree::split()
     
 }
 
-int QuadTree::getIndex(TerrainObject object)
+int QuadTree::getIndex(TerrainObject *object)
 {
     double verticalMidpoint = _bounds->getX() + (_bounds->getWidth()/2);
     double horizontalMidpoint = _bounds->getY() + (_bounds->getHeight()/2);
     
-    bool topQuadrant = (object.getBounds().getY() > horizontalMidpoint);
-    bool bottomQuadrant = (object.getBounds().getY() < horizontalMidpoint &&
-                           object.getBounds().getY() + object.getBounds().getHeight() < horizontalMidpoint);
-    bool leftQuadrant = (object.getBounds().getX() < verticalMidpoint &&
-                         object.getBounds().getX() + object.getBounds().getWidth() < verticalMidpoint);
-    bool rightQuadrant = (object.getBounds().getX() > verticalMidpoint);
+    bool topQuadrant = (object->getBounds().getY() > horizontalMidpoint);
+    bool bottomQuadrant = (object->getBounds().getY() < horizontalMidpoint &&
+                           object->getBounds().getY() + object->getBounds().getHeight() < horizontalMidpoint);
+    bool leftQuadrant = (object->getBounds().getX() < verticalMidpoint &&
+                         object->getBounds().getX() + object->getBounds().getWidth() < verticalMidpoint);
+    bool rightQuadrant = (object->getBounds().getX() > verticalMidpoint);
     
     // Return the index of the correct quadrant
     if (topQuadrant && rightQuadrant) {
@@ -138,5 +142,5 @@ BoundingBox QuadTree::getBounds()
 
 QuadTree::~QuadTree()
 {
-    clear();
+    delete[] *_nodes;
 }

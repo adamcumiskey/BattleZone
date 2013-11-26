@@ -23,7 +23,7 @@ Enemy::Enemy()
 Enemy::Enemy(float x, float y, float z, float angle)
 {
     _xPos = x;
-    _yPos = y;
+    _yPos = .35;
     _zPos = z;
     _angle = angle;
     _currentState = AI_NONE;
@@ -32,8 +32,28 @@ Enemy::Enemy(float x, float y, float z, float angle)
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
     glColor3f(1.0, 0.0, 0.0);
+    
+    // Base of the tank
+    glPushMatrix();
+    glScalef(2, .5, 1.25);
     glutWireCube(1.0);
-    glScalef(0, .33, 0); // make the tank a rectangular box
+    glPopMatrix();
+    
+    // Top of the tank
+    glPushMatrix();
+    glTranslatef(0, .45, 0);
+    glScalef(1.25, .4, .75);
+    glutWireCube(1);
+    glPopMatrix();
+    
+    // Cannon
+    glPushMatrix();
+    glRotatef(90, 0, 1, 0);
+    glTranslatef(0, .5, 1);
+    glScalef(.1, .1, 2);
+    glutWireCube(1);
+    glPopMatrix();
+    
     glEndList();
     
     _displayList = index;
@@ -42,7 +62,10 @@ Enemy::Enemy(float x, float y, float z, float angle)
 #pragma mark - Public methods
 void Enemy::renderEnemy()
 {
+    glPushMatrix();
+    glTranslatef(_xPos, _yPos, _zPos);
     glCallList(_displayList);
+    glPopMatrix();
 }
 
 void Enemy::updateEnemy()

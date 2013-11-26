@@ -84,7 +84,7 @@ CCamera::CCamera(GLfloat x, GLfloat y, GLfloat z)
 {
     //Init with standard OGL values:
 	Position = F3dVector (x, y,	z);
-	ViewDir = F3dVector(0.0, 0.0, 1.0);
+	ViewDir = F3dVector(0.0, 0.0, -1.0);
 	RightVector = F3dVector (1.0, 0.0, 0.0);
 	UpVector = F3dVector (0.0, 1.0, 0.0);
     
