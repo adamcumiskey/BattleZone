@@ -1,19 +1,20 @@
 //
-//  Camera.cpp
+//  MovableObject.cpp
 //  BattlezoneClone
 //
-// Adapted from http://www.opengl.org/sdk/docs/tutorials/CodeColony/camera.php
+//  Created by Adam Cumiskey on 11/26/13.
+//  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
+//
 
-
-#include "camera.h"
-#include "math.h"
-#include <iostream>
+#include "MovableObject.h"
+#include <math.h>
 
 #define SQR(x) (x*x)
-
+#define PIdiv180 M_PI/180.0f
 #define NULL_VECTOR F3dVector(0.0f,0.0f,0.0f)
 
-SF3dVector F3dVector ( GLfloat x, GLfloat y, GLfloat z )
+#pragma mark Vector Helpers
+SF3dVector F3dVector ( float x, float y, float z )
 {
 	SF3dVector tmp;
 	tmp.x = x;
@@ -22,9 +23,9 @@ SF3dVector F3dVector ( GLfloat x, GLfloat y, GLfloat z )
 	return tmp;
 }
 
-GLfloat GetF3dVectorLength( SF3dVector * v)
+float GetF3dVectorLength( SF3dVector * v)
 {
-	return (GLfloat)(sqrt(SQR(v->x)+SQR(v->y)+SQR(v->z)));
+	return (float)(sqrt(SQR(v->x)+SQR(v->y)+SQR(v->z)));
 }
 
 SF3dVector Normalize3dVector( SF3dVector v)
@@ -80,7 +81,7 @@ float operator* (SF3dVector v, SF3dVector u)	//dot product
 }
 
 // Constructor
-CCamera::CCamera(GLfloat x, GLfloat y, GLfloat z)
+MovableObject::MovableObject(float x, float y, float z)
 {
     //Init with standard OGL values:
 	Position = F3dVector (x, y,	z);
@@ -92,12 +93,12 @@ CCamera::CCamera(GLfloat x, GLfloat y, GLfloat z)
 	RotatedX = RotatedY = RotatedZ = 0.0;
 }
 
-void CCamera::Move (SF3dVector Direction)
+void MovableObject::Move (SF3dVector Direction)
 {
 	Position = Position + Direction;
 }
 
-void CCamera::RotateX (GLfloat Angle)
+void MovableObject::RotateX (float Angle)
 {
 	RotatedX += Angle;
 	
@@ -111,7 +112,7 @@ void CCamera::RotateX (GLfloat Angle)
 	
 }
 
-void CCamera::RotateY (GLfloat Angle)
+void MovableObject::RotateY (float Angle)
 {
 	RotatedY += Angle;
 	
@@ -123,7 +124,7 @@ void CCamera::RotateY (GLfloat Angle)
 	RightVector = CrossProduct(&ViewDir, &UpVector);
 }
 
-void CCamera::RotateZ (GLfloat Angle)
+void MovableObject::RotateZ (float Angle)
 {
 	RotatedZ += Angle;
 	
@@ -135,31 +136,9 @@ void CCamera::RotateZ (GLfloat Angle)
 	UpVector = CrossProduct(&ViewDir, &RightVector)*-1;
 }
 
-void CCamera::Render( void )
-{
-    
-	//The point at which the camera looks:
-	SF3dVector ViewPoint = Position+ViewDir;
-    
-	//as we know the up vector, we can easily use gluLookAt:
-	gluLookAt(	Position.x,Position.y,Position.z,
-              ViewPoint.x,ViewPoint.y,ViewPoint.z,
-              UpVector.x,UpVector.y,UpVector.z);
-    
-}
-
-void CCamera::MoveForward( GLfloat Distance )
+void MovableObject::MoveForward(float Distance)
 {
 	Position = Position + (ViewDir*-Distance);
-    std::cout << "CurrentPostion (" << Position.x << ", " << Position.z << ")" << std::endl;
 }
 
-void CCamera::StrafeRight ( GLfloat Distance )
-{
-	Position = Position + (RightVector*Distance);
-}
 
-void CCamera::MoveUpward( GLfloat Distance )
-{
-	Position = Position + (UpVector*Distance);
-}

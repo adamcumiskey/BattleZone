@@ -9,6 +9,8 @@
 #include "GameManager.h"
 #include "TerrainObject.h"
 #include "Enemy.h"
+#include "Player.h"
+
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -25,12 +27,59 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
     generateObjects(numOfTerrainObjs, gameArea);
     createEnemy();
+    initializePlayer();
+}
+
+void GameManager::updateGame()
+{
+    drawGround();
+    
+    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+    while (it != _terrainObjects.end()) {
+        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+        object.renderObject();
+        it++;
+    }
+    
+    _enemy->renderEnemy();
+    _player->updateCamera();
+}
+
+void GameManager::input(unsigned char key)
+{
+    switch(key)
+    {
+        case 27:
+            exit(0);
+            break;
+        case 'w':
+            _player->MoveForward(-.5);
+            break;
+        case 'a':
+            _player->RotateY(5.0);
+            break;
+        case 's':
+            _player->MoveForward(.5);
+            break;
+        case 'd':
+            _player->RotateY(-5.0);
+            break;
+        default:
+            break;
+    }
+    glutPostRedisplay();
+}
+
+#pragma mark - Player Manager
+void GameManager::initializePlayer()
+{
+    _player = new Player(0, 1, 0);
 }
 
 #pragma mark - Enemy Manager
 void GameManager::createEnemy()
 {
-    _enemy = new Enemy(5, 0, 5, 0);
+    _enemy = new Enemy(0, 0, 0);
 }
 
 #pragma mark - Terrain Manager
@@ -60,20 +109,6 @@ void GameManager::generateObjects(int n, int gridSize)
                                                   type);
         _terrainObjects.push_back(object);
     }
-}
-
-void GameManager::updateGame()
-{
-    drawGround();
-    
-    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-    while (it != _terrainObjects.end()) {
-        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-        object.renderObject();
-        it++;
-    }
-    
-    _enemy->renderEnemy();
 }
 
 void GameManager::drawGround()

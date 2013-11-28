@@ -15,24 +15,15 @@
 #endif
 
 #pragma mark - Constructors
-Enemy::Enemy()
+Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
 {
-    // blank constructor
-}
-
-Enemy::Enemy(float x, float y, float z, float angle)
-{
-    _xPos = x;
-    _yPos = .35;
-    _zPos = z;
-    _angle = angle;
     _currentState = AI_NONE;
     
     // Store the object in a displayList
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
     glColor3f(1.0, 0.0, 0.0);
-    
+
     // Base of the tank
     glPushMatrix();
     glScalef(2, .5, 1.25);
@@ -49,8 +40,8 @@ Enemy::Enemy(float x, float y, float z, float angle)
     // Cannon
     glPushMatrix();
     glRotatef(90, 0, 1, 0);
-    glTranslatef(0, .5, 1);
-    glScalef(.1, .1, 2);
+    glTranslatef(0, .5, 1.12);
+    glScalef(.1, .1, 1);
     glutWireCube(1);
     glPopMatrix();
     
@@ -59,11 +50,12 @@ Enemy::Enemy(float x, float y, float z, float angle)
     _displayList = index;
 }
 
+
 #pragma mark - Public methods
 void Enemy::renderEnemy()
 {
     glPushMatrix();
-    glTranslatef(_xPos, _yPos, _zPos);
+    glTranslatef(Position.x, Position.y, Position.z);
     glCallList(_displayList);
     glPopMatrix();
 }
@@ -75,19 +67,15 @@ void Enemy::updateEnemy()
             break;
             
         case AI_MOVE:
-            move();
             break;
             
         case AI_TURN:
-            turn();
             break;
             
         case AI_AIM:
-            aim();
             break;
             
         case AI_FIRE:
-            fire();
             break;
             
         default:
@@ -98,25 +86,4 @@ void Enemy::updateEnemy()
 void Enemy::changeAIToState(EnemyState newState)
 {
     _currentState = newState;
-}
-
-#pragma mark - Private methods
-void Enemy::move()
-{
-    
-}
-
-void Enemy::turn()
-{
-    _angle += 5;
-}
-
-void Enemy::aim()
-{
-    
-}
-
-void Enemy::fire()
-{
-    
 }

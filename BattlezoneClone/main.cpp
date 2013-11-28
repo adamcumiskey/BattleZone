@@ -8,7 +8,6 @@
 //  Main file for the battlezone program. All OpenGL main loop logic should go here.
 
 #include <iostream>
-#include "Camera.h"
 #include "GameManager.h"
 
 #ifdef __APPLE__
@@ -20,7 +19,6 @@
 #define TABLE_WIDTH 4000
 #define TABLE_HEIGHT 2000
 
-CCamera Camera(0.0, 0.5, 0.0);
 GameManager gameManager;
 
 void setup()
@@ -37,12 +35,6 @@ void drawScene()
     glPolygonMode(GL_BACK, GL_FILL);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-
-    // Draw the camera
-    // This class will eventually be removed, as the camera
-		// will be attached to the player class which will control
-		// movement.
-		Camera.Render();
     
     // update the game state
     gameManager.updateGame();
@@ -62,27 +54,7 @@ void resize(int w, int h)
 
 void keyInput(unsigned char key, int x, int y)
 {
-    switch(key)
-    {
-        case 27:
-            exit(0);
-            break;
-        case 'w':
-            Camera.MoveForward(-.5);
-            break;
-        case 'a':
-            Camera.RotateY(5.0);
-            break;
-        case 's':
-            Camera.MoveForward(.5);
-            break;
-        case 'd':
-            Camera.RotateY(-5.0);
-            break;
-        default:
-            break;
-    }
-    glutPostRedisplay();
+    gameManager.input(key);
 }
 
 void printInteraction()

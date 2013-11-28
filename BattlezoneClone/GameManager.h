@@ -17,9 +17,16 @@
 
 class TerrainObject;
 class Enemy;
+class Player;
 class GameManager
 {
 private:
+    // Pointer to the player object
+    Player *_player;
+    
+    // Initialize the player
+    void initializePlayer();
+    
     // Pointer to the enemy object
     Enemy *_enemy;
     
@@ -39,10 +46,13 @@ private:
 public:
     GameManager();
     
+    void initializeGame(int numOfTerrainObjs, int gameArea);
+    
     // Called every frame to take care of updating the game world
     void updateGame();
     
-    void initializeGame(int numOfTerrainObjs, int gameArea);
+    // Process keyboard interrupts
+    void input(unsigned char key);
 };
 
 

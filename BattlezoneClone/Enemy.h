@@ -10,7 +10,7 @@
 #define __BattlezoneClone__Enemy__
 
 #include <iostream>
-
+#include "MovableObject.h"
 
 enum {
     AI_NONE, // Inactive
@@ -20,22 +20,14 @@ enum {
     AI_FIRE // Firing a shell at the player
 }; typedef int EnemyState;
 
-class Enemy
+class Enemy : public MovableObject
 {
 private:
-    float _xPos, _yPos, _zPos;
-    float _angle;
     EnemyState _currentState;
     int _displayList;
     
-    void move();
-    void turn();
-    void aim();
-    void fire();
-    
 public:
-    Enemy();
-    Enemy(float x, float y, float z, float angle);
+    Enemy(float x, float y, float z);
     
     void renderEnemy();
     void updateEnemy();
