@@ -32,6 +32,8 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 
 void GameManager::updateGame()
 {
+    _player->updateCamera();
+    
     drawGround();
     
     std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
@@ -42,7 +44,6 @@ void GameManager::updateGame()
     }
     
     _enemy->renderEnemy();
-    _player->updateCamera();
 }
 
 void GameManager::input(unsigned char key)
@@ -79,7 +80,7 @@ void GameManager::initializePlayer()
 #pragma mark - Enemy Manager
 void GameManager::createEnemy()
 {
-    _enemy = new Enemy(0, 0, 0);
+    _enemy = new Enemy(0, .5, -5);
 }
 
 #pragma mark - Terrain Manager
