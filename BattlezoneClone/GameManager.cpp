@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "BoundingBox.h"
 
 
 #ifdef __APPLE__
@@ -26,7 +27,7 @@ GameManager::GameManager()
 
 void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
-    generateObjects(numOfTerrainObjs, gameArea);
+    //generateObjects(numOfTerrainObjs, gameArea);
     createEnemy();
     initializePlayer();
 }
@@ -52,14 +53,15 @@ void GameManager::updateGame()
 
 void GameManager::animateGame()
 {
-    _enemy->aim(_player->getPosition());
+    //_enemy->aim(_player->getPosition());
     
     if (firing) {
         _playerProjectile->move();
         // check the distance
-        if (MovableObject::distance(*_player, *_playerProjectile) > 100) {
+        if (MovableObject::distance(*_player, *_playerProjectile) >= 50) {
             removeProjectile(_playerProjectile);
         }
+        checkProjectileCollisions();
     }
 }
 
@@ -74,13 +76,13 @@ void GameManager::input(unsigned char key)
             _player->MoveForward(-.5);
             break;
         case 'a':
-            _player->RotateY(5.0);
+            _player->RotateY(3.0);
             break;
         case 's':
             _player->MoveForward(.5);
             break;
         case 'd':
-            _player->RotateY(-5.0);
+            _player->RotateY(-3.0);
             break;
         case ' ':
             fire();
@@ -94,29 +96,55 @@ void GameManager::input(unsigned char key)
 #pragma mark - Player Manager
 void GameManager::initializePlayer()
 {
-    _player = new Player(0, 1, 0);
+    _player = new Player(0, 1, 5);
 }
 
 void GameManager::fire()
 {
-    firing = true;
-    _playerProjectile = new Projectile(_player->getPosition(),
-                                 _player->getDirection(),
-                                 _player->getRotation());
+    if (!firing) {
+        firing = true;
+        _playerProjectile = new Projectile(_player->getPosition(),
+                                           _player->getDirection(),
+                                           _player->getRotation());
+    }
 }
 
 void GameManager::removeProjectile(Projectile *_projectile)
 {
-    if (_playerProjectile != NULL) {
-        delete _playerProjectile;
+    if (_projectile != NULL) {
+        delete _projectile;
     }
     firing = false;
+}
+
+void GameManager::checkProjectileCollisions()
+{
+    BoundingBox projectileBB = _playerProjectile->bounds();
+    
+    BoundingBox enemyBB = _enemy->bounds();
+    
+    if (projectileBB.intersects(enemyBB)) {
+        removeProjectile(_playerProjectile);
+    }
+    
+    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+    while (it != _terrainObjects.end()) {
+        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+        BoundingBox terrainBB = object.bounds();
+        printf("objectBB: %f, %f\n", terrainBB.getWidth(), terrainBB.getHeight());
+        
+        if (projectileBB.intersects(terrainBB)) {
+            removeProjectile(_playerProjectile);
+        }
+        it++;
+    }
+    
 }
 
 #pragma mark - Enemy Manager
 void GameManager::createEnemy()
 {
-    _enemy = new Enemy(1, .5, -5);
+    _enemy = new Enemy(5, .5, -10);
     _enemy->changeAIToState(AI_MOVE);
 }
 
@@ -126,7 +154,7 @@ void GameManager::generateObjects(int n, int gridSize)
     for (int i = 0; i < n; i++) {
         
         // Generate random size between 1 and 3
-        GLdouble size = (float)(rand() % 3);
+        GLdouble size = (float)(rand() % 3)+1;
         
         // generate random x and z positions within the grid
         GLfloat x = (rand() % gridSize) - (gridSize/2);
@@ -167,5 +195,7 @@ GameManager::~GameManager()
 {
     delete _enemy;
     delete _player;
-    delete _playerProjectile;
+    if (_playerProjectile != NULL) {
+        delete _playerProjectile;
+    }
 }

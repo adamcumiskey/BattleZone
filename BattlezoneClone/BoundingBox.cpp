@@ -7,6 +7,14 @@
 //
 
 #include "BoundingBox.h"
+#include "MovableObject.h"
+#include <math.h>
+
+#ifdef __APPLE__
+#  include <GLUT/glut.h>
+#else
+#  include <GL/glut.h>
+#endif
 
 Point2d createPoint2d(float x, float y)
 {
@@ -16,6 +24,20 @@ Point2d createPoint2d(float x, float y)
     return temp;
 }
 /* ----------------- */
+
+Point2d RotatePoint(Point2d pointToRotate, Point2d centerPoint, double angleInDegrees)
+{
+    double angleInRadians = angleInDegrees * (M_PI / 180);
+    double cosTheta = cos(angleInRadians);
+    double sinTheta = sin(angleInRadians);
+    float x = (cosTheta * (pointToRotate.x - centerPoint.y) -
+               sinTheta * (pointToRotate.y - centerPoint.y) + centerPoint.x);
+    
+    float  y = (sinTheta * (pointToRotate.x - centerPoint.x) +
+                cosTheta * (pointToRotate.y - centerPoint.y) + centerPoint.y);
+    
+    return createPoint2d(x, y);
+}
 
 #pragma mark - Constructors
 BoundingBox::BoundingBox()
@@ -30,6 +52,9 @@ BoundingBox::BoundingBox(Point2d topRight,
     _bottomLeft = bottomLeft;
     _topLeft = createPoint2d(_bottomLeft.x, _topRight.y);
     _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
+    
+    _center.x = (_topRight.x+_bottomLeft.x)/2;
+    _center.y = (_topRight.y+_bottomLeft.y)/2;
 }
 
 BoundingBox::BoundingBox(float x1, float y1,
@@ -39,6 +64,14 @@ BoundingBox::BoundingBox(float x1, float y1,
     _bottomLeft = createPoint2d(x2, y2);
     _topLeft = createPoint2d(_bottomLeft.x, _topRight.y);
     _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
+    
+    _center.x = (_topRight.x+_bottomLeft.x)/2;
+    _center.y = (_topRight.y+_bottomLeft.y)/2;
+}
+
+BoundingBox::BoundingBox(float size, float scaleX, float scaleY)
+{
+    
 }
 
 #pragma mark - Collition detection
@@ -87,4 +120,13 @@ float BoundingBox::getX()
 float BoundingBox::getY()
 {
     return _bottomLeft.y;
+}
+
+void BoundingBox::moveToPosition(float x, float y, float z)
+{
+    _center.x = x; _center.y = z; // z represents 'y' in the xz plane
+    _topLeft.x = (getWidth()/2)+_center.x;
+    _topLeft.y = (getWidth()/2)+_center.y;
+    _bottomLeft.x = (getHeight()/2)-_center.x;
+    _bottomLeft.y = (getHeight()/2)-_center.y;
 }

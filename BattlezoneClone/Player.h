@@ -12,6 +12,7 @@
 #include <iostream>
 #include "MovableObject.h"
 
+class BoundingBox;
 class Player : public MovableObject
 {
 private:
@@ -25,6 +26,8 @@ public:
     void updateCamera();
     
     void fire();
+    
+    BoundingBox bounds();
 };
 
 #endif /* defined(__BattlezoneClone__Player__) */

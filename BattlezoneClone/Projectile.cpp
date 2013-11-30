@@ -7,6 +7,7 @@
 //
 
 #include "Projectile.h"
+#include "BoundingBox.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -14,7 +15,7 @@
 #  include <GL/glut.h>
 #endif
 
-#define PROJECTILE_SPEED 2
+#define PROJECTILE_SPEED 1
 
 Projectile::Projectile(SF3dVector playerPosition, SF3dVector direction, float angle) : MovableObject(playerPosition.x, playerPosition.y, playerPosition.z)
 {
@@ -27,7 +28,7 @@ Projectile::Projectile(SF3dVector playerPosition, SF3dVector direction, float an
     glColor3f(1.0, 0.0, 0.0);
     glutWireSphere(.1, 10, 10);
     glEndList();
-    
+        
     _displayList = index;
 }
 
@@ -43,4 +44,16 @@ void Projectile::renderProjectile()
 void Projectile::move()
 {
     MoveForward(-PROJECTILE_SPEED);
+}
+
+BoundingBox Projectile::bounds()
+{
+    Point2d center = createPoint2d(Position.x, Position.z);
+    Point2d unrotatedTR = createPoint2d(Position.x+.05, Position.z+.05);
+    Point2d unrotatedBL = createPoint2d(Position.x-.05, Position.z-.05);
+    
+    Point2d topRight = RotatePoint(unrotatedTR, center, RotatedY);
+    Point2d bottomLeft = RotatePoint(unrotatedBL, center, RotatedY);
+    
+    return BoundingBox(topRight, bottomLeft);
 }

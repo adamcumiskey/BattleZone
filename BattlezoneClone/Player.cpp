@@ -7,6 +7,7 @@
 //
 
 #include "Player.h"
+#include "BoundingBox.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -36,4 +37,16 @@ void Player::MoveForward(float distance)
     MovableObject::MoveForward(distance);
     
     //std::cout << "Current Postition: (" << Position.x << ", " << Position.z << ")" << std::endl;
+}
+
+BoundingBox Player::bounds()
+{
+    Point2d center = createPoint2d(Position.x, Position.z);
+    Point2d unrotatedTR = createPoint2d(Position.x+1, Position.z+.65);
+    Point2d unrotatedBL = createPoint2d(Position.x-1, Position.z-.65);
+    
+    Point2d topRight = RotatePoint(unrotatedTR, center, RotatedY);
+    Point2d bottomLeft = RotatePoint(unrotatedBL, center, RotatedY);
+    
+    return BoundingBox(topRight, bottomLeft);
 }

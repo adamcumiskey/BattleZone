@@ -22,6 +22,8 @@ public:
     
     void renderProjectile();
     void move();
+    
+    BoundingBox bounds();
 };
 
 #endif /* defined(__BattlezoneClone__Projectile__) */

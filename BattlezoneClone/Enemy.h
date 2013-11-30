@@ -41,6 +41,8 @@ public:
     void turn(Direction direction);
     void aim(SF3dVector targetPosition);
     void fire();
+    
+    BoundingBox bounds();
 };
 
 #endif /* defined(__BattlezoneClone__Enemy__) */

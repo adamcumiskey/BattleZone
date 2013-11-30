@@ -31,7 +31,7 @@ class TerrainObject
 private:
     PositionStruct _position;
     int _displayList;
-    BoundingBox *_bounds;
+    float _size;
     
 public:
     TerrainObject(float x,
@@ -41,7 +41,7 @@ public:
                   TerrainType type);
     
     void renderObject();
-    BoundingBox getBounds();
+    BoundingBox bounds();
 };
 
 #endif /* defined(__BattlezoneClone__TerrainObject__) */

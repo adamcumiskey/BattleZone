@@ -24,7 +24,7 @@ void setup()
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
     
-    gameManager.initializeGame(100, 500);
+    gameManager.initializeGame(1, 10);
 }
 
 void drawScene()

@@ -35,7 +35,7 @@ TerrainObject::TerrainObject(GLfloat x,
 {
     // set the position
     _position = Position(x, y, z);
-    _bounds = new BoundingBox(x+.25, z+.25, x-.25, z-.25);
+    _size = size;
     
     // Store the object in a displayList
     GLuint index = glGenLists(1);
@@ -74,7 +74,10 @@ void TerrainObject::renderObject()
     glPopMatrix();
 }
 
-BoundingBox TerrainObject::getBounds()
+BoundingBox TerrainObject::bounds()
 {
-    return *_bounds;
+    Point2d topRight = createPoint2d(_position.x+(_size/2), _position.z+(_size/2));
+    Point2d bottomLeft = createPoint2d(_position.x-(_size/2), _position.z-(_size/2));
+    
+    return BoundingBox(topRight, bottomLeft);
 }

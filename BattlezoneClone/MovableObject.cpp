@@ -7,6 +7,7 @@
 //
 
 #include "MovableObject.h"
+#include "BoundingBox.h"
 #include <math.h>
 
 #define SQR(x) (x*x)

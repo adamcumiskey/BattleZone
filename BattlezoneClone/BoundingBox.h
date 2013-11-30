@@ -24,11 +24,13 @@ struct Point2d {
     float x, y;
 };
 Point2d createPoint2d(float x, float y);
+Point2d RotatePoint(Point2d pointToRotate, Point2d centerPoint, double angleInDegrees);
 
 class BoundingBox
 {
 private:
     Point2d _topRight, _bottomLeft, _topLeft, _bottomRight;
+    Point2d _center;
     
 public:
     BoundingBox();
@@ -36,6 +38,7 @@ public:
                 Point2d bottomLeft);
     BoundingBox(float x1, float y1,
                 float x2, float y2);
+    BoundingBox(float size, float scaleX, float scaleY);
     
     // Return true if the point is within the bounding box
     bool containsPoint(Point2d point);
@@ -48,6 +51,9 @@ public:
     float getHeight();
     float getX();
     float getY();
+    
+    void moveToPosition(float x, float y, float z);
+    void rotate(float angle);
 };
 
 #endif /* defined(__BattlezoneClone__BoundingBox__) */

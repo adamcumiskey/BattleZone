@@ -116,12 +116,12 @@ int QuadTree::getIndex(TerrainObject *object)
     double verticalMidpoint = _bounds->getX() + (_bounds->getWidth()/2);
     double horizontalMidpoint = _bounds->getY() + (_bounds->getHeight()/2);
     
-    bool topQuadrant = (object->getBounds().getY() > horizontalMidpoint);
-    bool bottomQuadrant = (object->getBounds().getY() < horizontalMidpoint &&
-                           object->getBounds().getY() + object->getBounds().getHeight() < horizontalMidpoint);
-    bool leftQuadrant = (object->getBounds().getX() < verticalMidpoint &&
-                         object->getBounds().getX() + object->getBounds().getWidth() < verticalMidpoint);
-    bool rightQuadrant = (object->getBounds().getX() > verticalMidpoint);
+    bool topQuadrant = (object->bounds().getY() > horizontalMidpoint);
+    bool bottomQuadrant = (object->bounds().getY() < horizontalMidpoint &&
+                           object->bounds().getY() + object->bounds().getHeight() < horizontalMidpoint);
+    bool leftQuadrant = (object->bounds().getX() < verticalMidpoint &&
+                         object->bounds().getX() + object->bounds().getWidth() < verticalMidpoint);
+    bool rightQuadrant = (object->bounds().getX() > verticalMidpoint);
     
     // Return the index of the correct quadrant
     if (topQuadrant && rightQuadrant) {

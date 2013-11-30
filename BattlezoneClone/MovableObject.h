@@ -21,6 +21,7 @@ struct SF2dVector
 };
 SF3dVector F3dVector ( float x, float y, float z );
 
+class BoundingBox;
 class MovableObject
 {
 protected:

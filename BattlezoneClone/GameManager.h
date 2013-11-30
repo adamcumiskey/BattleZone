@@ -51,6 +51,9 @@ private:
     // Draws an infinite plane
     void drawGround();
     
+    // check bullet collisions
+    void checkProjectileCollisions();
+    
 public:
     GameManager();
     ~GameManager();

@@ -7,6 +7,7 @@
 //
 
 #include "Enemy.h"
+#include "BoundingBox.h"
 #include <math.h>
 
 #define SQR(x) (x*x)
@@ -111,7 +112,6 @@ void Enemy::aim(SF3dVector targetPosition)
     
     float angle = (acosf(dotProduct)*(180/M_PI));
     
-    printf("Angle %f\n", angle);
     if (!(angle <= 5) && !(angle <= -5)) {
         if (targetVector.x < ViewDir.x || targetVector.z < ViewDir.z) {
             turn(LEFT);
@@ -126,4 +126,15 @@ void Enemy::fire()
     
 }
 
+BoundingBox Enemy::bounds()
+{
+    Point2d center = createPoint2d(Position.x, Position.z);
+    Point2d unrotatedTR = createPoint2d(Position.x+1, Position.z+.65);
+    Point2d unrotatedBL = createPoint2d(Position.x-1, Position.z-.65);
+    
+    Point2d topRight = RotatePoint(unrotatedTR, center, RotatedY);
+    Point2d bottomLeft = RotatePoint(unrotatedBL, center, RotatedY);
+    
+    return BoundingBox(topRight, bottomLeft);
+}
 
