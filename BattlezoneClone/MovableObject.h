@@ -40,6 +40,12 @@ public:
 	void RotateZ ( float Angle );
     
 	void MoveForward ( float Distance );
+    
+    static float distance(MovableObject a, MovableObject b);
+    
+    SF3dVector getPosition();
+    SF3dVector getDirection();
+    float getRotation();
 };
 
 #endif /* defined(__BattlezoneClone__MovableObject__) */

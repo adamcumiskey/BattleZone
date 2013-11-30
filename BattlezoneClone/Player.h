@@ -23,6 +23,8 @@ public:
     
     // render the scene from the camera
     void updateCamera();
+    
+    void fire();
 };
 
 #endif /* defined(__BattlezoneClone__Player__) */

@@ -18,6 +18,7 @@
 class TerrainObject;
 class Enemy;
 class Player;
+class Projectile;
 class GameManager
 {
 private:
@@ -27,12 +28,19 @@ private:
     // Initialize the player
     void initializePlayer();
     
+    // fire a bullet for the player
+    void fire();
+    
+    // store the current projectile
+    Projectile *_playerProjectile;
+    bool firing;
+    void removeProjectile(Projectile *_projectile);
+    
     // Pointer to the enemy object
     Enemy *_enemy;
     
     // Create a new enemy
     void createEnemy();
-    
     
     // Vector containing all of the terrain objects
     std::vector<TerrainObject *> _terrainObjects;
@@ -45,11 +53,15 @@ private:
     
 public:
     GameManager();
+    ~GameManager();
     
     void initializeGame(int numOfTerrainObjs, int gameArea);
     
-    // Called every frame to take care of updating the game world
+    // Called every displayFunc call to take care of updating the game world
     void updateGame();
+    
+    // Called every animate call
+    void animateGame();
     
     // Process keyboard interrupts
     void input(unsigned char key);

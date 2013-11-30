@@ -35,5 +35,5 @@ void Player::MoveForward(float distance)
 {
     MovableObject::MoveForward(distance);
     
-    std::cout << "Current Postition: (" << Position.x << ", " << Position.z << ")" << std::endl;
+    //std::cout << "Current Postition: (" << Position.x << ", " << Position.z << ")" << std::endl;
 }

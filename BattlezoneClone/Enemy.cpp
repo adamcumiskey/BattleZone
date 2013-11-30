@@ -7,12 +7,20 @@
 //
 
 #include "Enemy.h"
+#include <math.h>
+
+#define SQR(x) (x*x)
+#define PIdiv180 M_PI/180.0f
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
 #  include <GL/glut.h>
 #endif
+
+#define TANK_SPEED 0.02f
+#define TURN_SPEED 1.0f
+#define MAX_ROTATION 40.0f
 
 #pragma mark - Constructors
 Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
@@ -24,6 +32,7 @@ Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
     glNewList(index, GL_COMPILE);
     glColor3f(1.0, 0.0, 0.0);
 
+    glRotated(90, 0, 1, 0);
     // Base of the tank
     glPushMatrix();
     glScalef(2, .5, 1.25);
@@ -56,34 +65,65 @@ void Enemy::renderEnemy()
 {
     glPushMatrix();
     glTranslatef(Position.x, Position.y, Position.z);
+    glRotated(RotatedY, 0, 1, 0);
     glCallList(_displayList);
     glPopMatrix();
-}
-
-void Enemy::updateEnemy()
-{
-    switch (_currentState) {
-        case AI_NONE:
-            break;
-            
-        case AI_MOVE:
-            break;
-            
-        case AI_TURN:
-            break;
-            
-        case AI_AIM:
-            break;
-            
-        case AI_FIRE:
-            break;
-            
-        default:
-            break;
-    }
 }
 
 void Enemy::changeAIToState(EnemyState newState)
 {
     _currentState = newState;
 }
+
+#pragma mark - AI Methods
+
+void Enemy::move()
+{
+    MoveForward(TANK_SPEED);
+}
+
+void Enemy::turn(Direction direction)
+{
+    if (direction == LEFT) {
+        RotateY(TURN_SPEED);
+    } else {
+        RotateY(-TURN_SPEED);
+    }
+}
+
+void Enemy::aim(SF3dVector targetPosition)
+{
+    // Get the vector between the tank and the player
+    SF3dVector targetVector = F3dVector(targetPosition.x-Position.x,
+                                        targetPosition.y-Position.y,
+                                        targetPosition.z-Position.z);
+    
+    // normalize the vector
+    float length = sqrtf(SQR(targetVector.x) + SQR(targetVector.y) + SQR(targetVector.z));
+    targetVector.x = targetVector.x/length;
+    targetVector.y = targetVector.y/length;
+    targetVector.z = targetVector.z/length;
+    
+    // find the dot product
+    float dotProduct = (targetVector.x*ViewDir.x +
+                        targetVector.y*ViewDir.y +
+                        targetVector.z*ViewDir.z);
+    
+    float angle = (acosf(dotProduct)*(180/M_PI));
+    
+    printf("Angle %f\n", angle);
+    if (!(angle <= 5) && !(angle <= -5)) {
+        if (targetVector.x < ViewDir.x || targetVector.z < ViewDir.z) {
+            turn(LEFT);
+        } else if (targetVector.x > ViewDir.x || targetVector.z > ViewDir.z) {
+            turn(RIGHT);
+        }
+    }
+}
+
+void Enemy::fire()
+{
+    
+}
+
+

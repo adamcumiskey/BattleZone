@@ -12,12 +12,16 @@
 #include <iostream>
 #include "MovableObject.h"
 
-class Projectile : MovableObject
+class Player;
+class Projectile : public MovableObject
 {
 private:
-    
+    int _displayList;
 public:
+    Projectile(SF3dVector playerPosition, SF3dVector direction, float angle);
     
+    void renderProjectile();
+    void move();
 };
 
 #endif /* defined(__BattlezoneClone__Projectile__) */

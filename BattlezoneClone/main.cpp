@@ -16,9 +16,6 @@
 #  include <GL/glut.h>
 #endif
 
-#define TABLE_WIDTH 4000
-#define TABLE_HEIGHT 2000
-
 GameManager gameManager;
 
 void setup()
@@ -27,7 +24,7 @@ void setup()
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
     
-    gameManager.initializeGame(100, 200);
+    gameManager.initializeGame(100, 500);
 }
 
 void drawScene()
@@ -40,6 +37,13 @@ void drawScene()
     gameManager.updateGame();
     
     glutSwapBuffers();
+}
+
+void animate(int value)
+{
+    gameManager.animateGame();
+    glutTimerFunc(10, animate, 1);
+    glutPostRedisplay();
 }
 
 void resize(int w, int h)
@@ -75,6 +79,7 @@ int main(int argc, char **argv)
     glutDisplayFunc(drawScene);
     glutReshapeFunc(resize);
     glutKeyboardFunc(keyInput);
+    glutTimerFunc(10, animate, 1);
     
     glutMainLoop();
     

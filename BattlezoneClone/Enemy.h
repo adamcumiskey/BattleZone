@@ -20,6 +20,11 @@ enum {
     AI_FIRE // Firing a shell at the player
 }; typedef int EnemyState;
 
+enum {
+    LEFT,
+    RIGHT
+}; typedef int Direction;
+
 class Enemy : public MovableObject
 {
 private:
@@ -30,8 +35,12 @@ public:
     Enemy(float x, float y, float z);
     
     void renderEnemy();
-    void updateEnemy();
     void changeAIToState(EnemyState newState);
+    
+    void move();
+    void turn(Direction direction);
+    void aim(SF3dVector targetPosition);
+    void fire();
 };
 
 #endif /* defined(__BattlezoneClone__Enemy__) */

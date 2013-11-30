@@ -10,6 +10,7 @@
 #include "TerrainObject.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Projectile.h"
 
 
 #ifdef __APPLE__
@@ -33,7 +34,7 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 void GameManager::updateGame()
 {
     _player->updateCamera();
-    
+
     drawGround();
     
     std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
@@ -44,6 +45,22 @@ void GameManager::updateGame()
     }
     
     _enemy->renderEnemy();
+    if (firing) {
+        _playerProjectile->renderProjectile();
+    }
+}
+
+void GameManager::animateGame()
+{
+    _enemy->aim(_player->getPosition());
+    
+    if (firing) {
+        _playerProjectile->move();
+        // check the distance
+        if (MovableObject::distance(*_player, *_playerProjectile) > 100) {
+            removeProjectile(_playerProjectile);
+        }
+    }
 }
 
 void GameManager::input(unsigned char key)
@@ -65,6 +82,9 @@ void GameManager::input(unsigned char key)
         case 'd':
             _player->RotateY(-5.0);
             break;
+        case ' ':
+            fire();
+            break;
         default:
             break;
     }
@@ -77,10 +97,27 @@ void GameManager::initializePlayer()
     _player = new Player(0, 1, 0);
 }
 
+void GameManager::fire()
+{
+    firing = true;
+    _playerProjectile = new Projectile(_player->getPosition(),
+                                 _player->getDirection(),
+                                 _player->getRotation());
+}
+
+void GameManager::removeProjectile(Projectile *_projectile)
+{
+    if (_playerProjectile != NULL) {
+        delete _playerProjectile;
+    }
+    firing = false;
+}
+
 #pragma mark - Enemy Manager
 void GameManager::createEnemy()
 {
-    _enemy = new Enemy(0, .5, -5);
+    _enemy = new Enemy(1, .5, -5);
+    _enemy->changeAIToState(AI_MOVE);
 }
 
 #pragma mark - Terrain Manager
@@ -94,8 +131,6 @@ void GameManager::generateObjects(int n, int gridSize)
         // generate random x and z positions within the grid
         GLfloat x = (rand() % gridSize) - (gridSize/2);
         GLfloat z = (rand() % gridSize) - (gridSize/2);
-        
-        std::cout << "( " << x << ", " << z << ")" << std::endl;
         
         // set the y to touch the ground
         GLfloat y = 0;
@@ -125,4 +160,12 @@ void GameManager::drawGround()
     glVertex4f(0, 0, -1, 0);
     glVertex4f(1, 0, 0, 0);
     glEnd();
+}
+
+#pragma mark - Destructor
+GameManager::~GameManager()
+{
+    delete _enemy;
+    delete _player;
+    delete _playerProjectile;
 }

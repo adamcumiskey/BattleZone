@@ -141,4 +141,26 @@ void MovableObject::MoveForward(float Distance)
 	Position = Position + (ViewDir*-Distance);
 }
 
+float MovableObject::distance(MovableObject a, MovableObject b)
+{
+    SF3dVector vector = F3dVector(b.Position.x-a.Position.x,
+                                  b.Position.y-a.Position.y,
+                                  b.Position.z-a.Position.z);
+    return GetF3dVectorLength(&vector);
+}
+
+SF3dVector MovableObject::getPosition()
+{
+    return Position;
+}
+
+SF3dVector MovableObject::getDirection()
+{
+    return ViewDir;
+}
+
+float MovableObject::getRotation()
+{
+    return RotatedY;
+}
 
