@@ -15,6 +15,7 @@
 enum {
     AI_NONE, // Inactive
     AI_MOVE, // Moving forward
+    AI_REVERSE, // Reversing
     AI_TURN, // Turning to a new direction
     AI_AIM, // Turning towards the Player
     AI_FIRE // Firing a shell at the player
@@ -31,6 +32,11 @@ private:
     EnemyState _currentState;
     int _displayList;
     
+    // The total amount the enemy has moved/turned during each AI_Phase
+    float distanceMoved;
+    float angleTurned;
+    Direction currentDirection;
+    
 public:
     Enemy(float x, float y, float z);
     
@@ -39,9 +45,14 @@ public:
     EnemyState getAIState();
     
     void move();
-    void turn(Direction direction);
+    void reverse();
+    void turn();
     void aim(SF3dVector targetPosition);
     void fire();
+    
+    void setTurnDirection(Direction direction);
+    float getDistanceMoved();
+    float getAngleTurned();
     
     BoundingBox bounds();
     void renderBounds();

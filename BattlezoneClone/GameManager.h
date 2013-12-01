@@ -47,6 +47,8 @@ private:
     void removeEnemy();
     // run the enemy's AI
     void runAI();
+    // check enemy collisions
+    bool enemyDidCollide();
     
     // Vector containing all of the terrain objects
     std::vector<TerrainObject *> _terrainObjects;
@@ -64,10 +66,11 @@ public:
     GameManager();
     ~GameManager();
     
+    // set up the game
     void initializeGame(int numOfTerrainObjs, int gameArea);
     
-    // Called every displayFunc call to take care of updating the game world
-    void updateGame();
+    // Renders the current gameWorld
+    void renderWorld();
     
     // Called every animate call
     void animateGame();

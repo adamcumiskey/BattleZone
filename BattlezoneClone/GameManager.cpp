@@ -22,6 +22,7 @@
 
 #define PROJECTILE_MAX_DIST 100
 
+#pragma mark - Public methods
 GameManager::GameManager()
 {
     // Empty Constructor
@@ -34,7 +35,7 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
     initializePlayer();
 }
 
-void GameManager::updateGame()
+void GameManager::renderWorld()
 {
     _player->updateCamera();
 
@@ -44,12 +45,10 @@ void GameManager::updateGame()
     while (it != _terrainObjects.end()) {
         TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
         object.renderObject();
-        object.renderBounds();
         it++;
     }
     
     _enemy->renderEnemy();
-    _enemy->renderBounds();
     if (firing) {
         _playerProjectile->renderProjectile();
     }
@@ -61,10 +60,13 @@ void GameManager::animateGame()
     
     if (firing) {
         _playerProjectile->move();
-        // check the distance
+        
+        // Remove if the projectile has gone too far
         if (MovableObject::distance(*_player, *_playerProjectile) >= PROJECTILE_MAX_DIST) {
             removeProjectile(_playerProjectile);
         }
+        
+        // remove if the projectile collides
         checkProjectileCollisions();
     }
 }
@@ -201,16 +203,59 @@ void GameManager::runAI()
             break;
             
         case AI_MOVE:
-            _enemy->move();
+            if (enemyDidCollide()) {
+                _enemy->changeAIToState(AI_REVERSE);
+            } else if (_enemy->getDistanceMoved() >= 10) {
+                _enemy->changeAIToState(AI_TURN);
+                _enemy->setTurnDirection(rand() % 2);
+            } else {
+                _enemy->move();
+            }
+            break;
+            
+        case AI_REVERSE:
+            if (_enemy->getDistanceMoved() >= 3) {
+                _enemy->changeAIToState(AI_TURN);
+                _enemy->setTurnDirection(rand() % 2);
+            } else {
+                _enemy->reverse();
+            }
             break;
             
         case AI_TURN:
-            _enemy->turn(LEFT);
+            if (_enemy->getAngleTurned() > 45) {
+                _enemy->changeAIToState(AI_MOVE);
+            } else {
+                _enemy->turn();
+            }
             break;
             
         default:
             break;
     }
+}
+
+bool GameManager::enemyDidCollide()
+{
+    BoundingBox enemyBB = _enemy->bounds();
+    
+    // check collisions with player
+    if (enemyBB.intersects(_player->bounds())) {
+        return true;
+    }
+    
+    // check terrain collisions
+    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+    while (it != _terrainObjects.end()) {
+        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+        BoundingBox terrainBB = object.bounds();
+        if (terrainBB.intersects(enemyBB)) {
+            return true;
+        }
+        it++;
+    }
+    
+    return false;
 }
 
 #pragma mark - Terrain Manager

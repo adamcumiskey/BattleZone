@@ -23,8 +23,9 @@ void setup()
     // Set the clear color to black and enable depth testing
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
+    srand(time(0)); // get a better random seed
     
-    gameManager.initializeGame(50, 300);
+    gameManager.initializeGame(100, 400);
 }
 
 void drawScene()
@@ -33,8 +34,9 @@ void drawScene()
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     
-    // update the game state
-    gameManager.updateGame();
+    glLineWidth(2.0);
+    
+    gameManager.renderWorld();
     
     glutSwapBuffers();
 }

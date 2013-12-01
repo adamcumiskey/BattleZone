@@ -28,6 +28,10 @@ Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
 {
     _currentState = AI_NONE;
     
+    distanceMoved = 0;
+    angleTurned = 0;
+    currentDirection = -1;
+    
     // Store the object in a displayList
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
@@ -77,6 +81,11 @@ void Enemy::renderEnemy()
 void Enemy::changeAIToState(EnemyState newState)
 {
     _currentState = newState;
+    
+    // reset the params
+    distanceMoved = 0;
+    angleTurned = 0;
+    currentDirection = -1;
 }
 
 EnemyState Enemy::getAIState()
@@ -89,15 +98,23 @@ EnemyState Enemy::getAIState()
 void Enemy::move()
 {
     MoveForward(-TANK_SPEED);
+    distanceMoved += TANK_SPEED;
 }
 
-void Enemy::turn(Direction direction)
+void Enemy::reverse()
 {
-    if (direction == LEFT) {
+    MoveForward(TANK_SPEED);
+    distanceMoved += TANK_SPEED;
+}
+
+void Enemy::turn()
+{
+    if (currentDirection == LEFT) {
         RotateY(TURN_SPEED);
     } else {
         RotateY(-TURN_SPEED);
     }
+    angleTurned += TURN_SPEED;
 }
 
 void Enemy::aim(SF3dVector targetPosition)
@@ -122,9 +139,9 @@ void Enemy::aim(SF3dVector targetPosition)
     
     if (!(angle <= 5) && !(angle <= -5)) {
         if (targetVector.x < ViewDir.x || targetVector.z < ViewDir.z) {
-            turn(LEFT);
+            turn();
         } else if (targetVector.x > ViewDir.x || targetVector.z > ViewDir.z) {
-            turn(RIGHT);
+            turn();
         }
     }
 }
@@ -134,6 +151,22 @@ void Enemy::fire()
     
 }
 
+void Enemy::setTurnDirection(Direction direction)
+{
+    currentDirection = direction;
+}
+
+float Enemy::getDistanceMoved()
+{
+    return distanceMoved;
+}
+
+float Enemy::getAngleTurned()
+{
+    return angleTurned;
+}
+
+#pragma mark - Collision methods
 BoundingBox Enemy::bounds()
 {
     Point2d center = createPoint2d(Position.x, Position.z);
