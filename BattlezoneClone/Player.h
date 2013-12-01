@@ -12,6 +12,7 @@
 #include <iostream>
 #include "MovableObject.h"
 
+
 class BoundingBox;
 class Player : public MovableObject
 {

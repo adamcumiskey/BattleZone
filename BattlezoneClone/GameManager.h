@@ -27,6 +27,8 @@ private:
     
     // Initialize the player
     void initializePlayer();
+    bool playerDidCollide();
+    
     
     // fire a bullet for the player
     void fire();
@@ -41,6 +43,10 @@ private:
     
     // Create a new enemy
     void createEnemy();
+    // Destroy the currentEnemy
+    void removeEnemy();
+    // run the enemy's AI
+    void runAI();
     
     // Vector containing all of the terrain objects
     std::vector<TerrainObject *> _terrainObjects;

@@ -23,7 +23,8 @@ public:
     void renderProjectile();
     void move();
     
-    BoundingBox bounds();
+    float centerX();
+    float centerY();
 };
 
 #endif /* defined(__BattlezoneClone__Projectile__) */

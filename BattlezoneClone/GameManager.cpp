@@ -20,6 +20,8 @@
 #  include <GL/glut.h>
 #endif
 
+#define PROJECTILE_MAX_DIST 100
+
 GameManager::GameManager()
 {
     // Empty Constructor
@@ -27,7 +29,7 @@ GameManager::GameManager()
 
 void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
-    //generateObjects(numOfTerrainObjs, gameArea);
+    generateObjects(numOfTerrainObjs, gameArea);
     createEnemy();
     initializePlayer();
 }
@@ -42,10 +44,12 @@ void GameManager::updateGame()
     while (it != _terrainObjects.end()) {
         TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
         object.renderObject();
+        object.renderBounds();
         it++;
     }
     
     _enemy->renderEnemy();
+    _enemy->renderBounds();
     if (firing) {
         _playerProjectile->renderProjectile();
     }
@@ -53,12 +57,12 @@ void GameManager::updateGame()
 
 void GameManager::animateGame()
 {
-    //_enemy->aim(_player->getPosition());
+    runAI();
     
     if (firing) {
         _playerProjectile->move();
         // check the distance
-        if (MovableObject::distance(*_player, *_playerProjectile) >= 50) {
+        if (MovableObject::distance(*_player, *_playerProjectile) >= PROJECTILE_MAX_DIST) {
             removeProjectile(_playerProjectile);
         }
         checkProjectileCollisions();
@@ -74,12 +78,19 @@ void GameManager::input(unsigned char key)
             break;
         case 'w':
             _player->MoveForward(-.5);
+            if (playerDidCollide()) {
+                _player->MoveForward(.5);
+            }
             break;
         case 'a':
             _player->RotateY(3.0);
             break;
         case 's':
             _player->MoveForward(.5);
+            if (playerDidCollide()) {
+                _player->MoveForward(-.5);
+            }
+
             break;
         case 'd':
             _player->RotateY(-3.0);
@@ -96,9 +107,34 @@ void GameManager::input(unsigned char key)
 #pragma mark - Player Manager
 void GameManager::initializePlayer()
 {
-    _player = new Player(0, 1, 5);
+    _player = new Player(0, .5, 0);
 }
 
+bool GameManager::playerDidCollide()
+{
+    BoundingBox playerBB = _player->bounds();
+    
+    // collides with enemy tank?
+    BoundingBox enemyBB = _enemy->bounds();
+    if (playerBB.intersects(enemyBB)) {
+        return true;
+    }
+    
+    // check collisions with the landscape
+    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+    while (it != _terrainObjects.end()) {
+        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+        BoundingBox terrainBB = object.bounds();
+        if (playerBB.intersects(terrainBB)) {
+            return true;
+        }
+        it++;
+    }
+    
+    return false;
+}
+
+#pragma mark - Projectile Manager
 void GameManager::fire()
 {
     if (!firing) {
@@ -119,21 +155,23 @@ void GameManager::removeProjectile(Projectile *_projectile)
 
 void GameManager::checkProjectileCollisions()
 {
-    BoundingBox projectileBB = _playerProjectile->bounds();
-    
     BoundingBox enemyBB = _enemy->bounds();
     
-    if (projectileBB.intersects(enemyBB)) {
+    if (enemyBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
+                                            _playerProjectile->centerY()))) {
         removeProjectile(_playerProjectile);
+        
+        // If the projectile hits the enemy, destroy it and create a new one
+        removeEnemy();
+        createEnemy();
     }
     
     std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
     while (it != _terrainObjects.end()) {
         TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
         BoundingBox terrainBB = object.bounds();
-        printf("objectBB: %f, %f\n", terrainBB.getWidth(), terrainBB.getHeight());
-        
-        if (projectileBB.intersects(terrainBB)) {
+        if (terrainBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
+                                                  _playerProjectile->centerY()))) {
             removeProjectile(_playerProjectile);
         }
         it++;
@@ -144,8 +182,35 @@ void GameManager::checkProjectileCollisions()
 #pragma mark - Enemy Manager
 void GameManager::createEnemy()
 {
-    _enemy = new Enemy(5, .5, -10);
+    float x = (rand() % 100) - (50);
+    float z = (rand() % 100) - (50);
+    _enemy = new Enemy(x, .5, z);
     _enemy->changeAIToState(AI_MOVE);
+}
+
+void GameManager::removeEnemy()
+{
+    delete _enemy;
+}
+
+void GameManager::runAI()
+{
+    EnemyState state = _enemy->getAIState();
+    switch (state) {
+        case AI_NONE:
+            break;
+            
+        case AI_MOVE:
+            _enemy->move();
+            break;
+            
+        case AI_TURN:
+            _enemy->turn(LEFT);
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Terrain Manager

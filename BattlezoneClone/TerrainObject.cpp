@@ -41,8 +41,9 @@ TerrainObject::TerrainObject(GLfloat x,
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
     glColor3f(0.0, 0.0, 1.0);
+
     glTranslatef(_position.x, _position.y, _position.z);
-    
+
     switch (type) {
         case Rock:
             glPushMatrix();
@@ -53,8 +54,9 @@ TerrainObject::TerrainObject(GLfloat x,
             
         case Tree:
             glPushMatrix();
+            glRotatef(45, 0, 1, 0);
             glRotatef(90, -1, 0, 0);
-            glutWireCone(size, size*2, 4, 1);
+            glutWireCone(size*.7, size*2, 4, 1);
             glPopMatrix();
             break;
             
@@ -80,4 +82,19 @@ BoundingBox TerrainObject::bounds()
     Point2d bottomLeft = createPoint2d(_position.x-(_size/2), _position.z-(_size/2));
     
     return BoundingBox(topRight, bottomLeft);
+}
+
+void TerrainObject::renderBounds()
+{
+    BoundingBox bounds = TerrainObject::bounds();
+    
+    glPushMatrix();
+    glColor3f(1, 1, 1);
+    glTranslatef(0, .01, 0);
+    glRotated(90, 1, 0, 0);
+    glRectd(bounds.getTopRight().x,
+            bounds.getTopRight().y,
+            bounds.getBottomLeft().x,
+            bounds.getBottomLeft().y);
+    glPopMatrix();
 }

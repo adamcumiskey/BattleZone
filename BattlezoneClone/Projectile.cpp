@@ -17,6 +17,7 @@
 
 #define PROJECTILE_SPEED 1
 
+
 Projectile::Projectile(SF3dVector playerPosition, SF3dVector direction, float angle) : MovableObject(playerPosition.x, playerPosition.y, playerPosition.z)
 {
     ViewDir = direction;
@@ -24,9 +25,9 @@ Projectile::Projectile(SF3dVector playerPosition, SF3dVector direction, float an
     // Store the object in a displayList
     GLuint index = glGenLists(1);
     glNewList(index, GL_COMPILE);
-    glRotated(angle, 0, 1, 0);
     glColor3f(1.0, 0.0, 0.0);
-    glutWireSphere(.1, 10, 10);
+    glRotated(angle, 0, 1, 0);
+    glutWireSphere(0.1, 10, 10);
     glEndList();
         
     _displayList = index;
@@ -46,14 +47,12 @@ void Projectile::move()
     MoveForward(-PROJECTILE_SPEED);
 }
 
-BoundingBox Projectile::bounds()
+float Projectile::centerX()
 {
-    Point2d center = createPoint2d(Position.x, Position.z);
-    Point2d unrotatedTR = createPoint2d(Position.x+.05, Position.z+.05);
-    Point2d unrotatedBL = createPoint2d(Position.x-.05, Position.z-.05);
-    
-    Point2d topRight = RotatePoint(unrotatedTR, center, RotatedY);
-    Point2d bottomLeft = RotatePoint(unrotatedBL, center, RotatedY);
-    
-    return BoundingBox(topRight, bottomLeft);
+    return Position.x;
+}
+
+float Projectile::centerY()
+{
+    return Position.z;
 }

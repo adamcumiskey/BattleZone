@@ -122,6 +122,21 @@ float BoundingBox::getY()
     return _bottomLeft.y;
 }
 
+Point2d BoundingBox::getTopRight()
+{
+    return _topRight;
+}
+
+Point2d BoundingBox::getBottomLeft()
+{
+    return _bottomLeft;
+}
+
+Point2d BoundingBox::center()
+{
+    return createPoint2d(getX(), getY());
+}
+
 void BoundingBox::moveToPosition(float x, float y, float z)
 {
     _center.x = x; _center.y = z; // z represents 'y' in the xz plane

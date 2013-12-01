@@ -36,6 +36,7 @@ public:
     
     void renderEnemy();
     void changeAIToState(EnemyState newState);
+    EnemyState getAIState();
     
     void move();
     void turn(Direction direction);
@@ -43,6 +44,7 @@ public:
     void fire();
     
     BoundingBox bounds();
+    void renderBounds();
 };
 
 #endif /* defined(__BattlezoneClone__Enemy__) */

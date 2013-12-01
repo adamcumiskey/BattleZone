@@ -51,6 +51,9 @@ public:
     float getHeight();
     float getX();
     float getY();
+    Point2d getTopRight();
+    Point2d getBottomLeft();
+    Point2d center();
     
     void moveToPosition(float x, float y, float z);
     void rotate(float angle);

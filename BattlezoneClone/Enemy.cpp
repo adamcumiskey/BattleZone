@@ -34,15 +34,17 @@ Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
     glColor3f(1.0, 0.0, 0.0);
 
     glRotated(90, 0, 1, 0);
+    
     // Base of the tank
     glPushMatrix();
+    glTranslated(0, -.25, 0);
     glScalef(2, .5, 1.25);
     glutWireCube(1.0);
     glPopMatrix();
     
     // Top of the tank
     glPushMatrix();
-    glTranslatef(0, .45, 0);
+    glTranslatef(0, .2, 0);
     glScalef(1.25, .4, .75);
     glutWireCube(1);
     glPopMatrix();
@@ -50,10 +52,11 @@ Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
     // Cannon
     glPushMatrix();
     glRotatef(90, 0, 1, 0);
-    glTranslatef(0, .5, 1.12);
+    glTranslatef(0, .3, 1.12);
     glScalef(.1, .1, 1);
     glutWireCube(1);
     glPopMatrix();
+    
     
     glEndList();
     
@@ -76,11 +79,16 @@ void Enemy::changeAIToState(EnemyState newState)
     _currentState = newState;
 }
 
+EnemyState Enemy::getAIState()
+{
+    return _currentState;
+}
+
 #pragma mark - AI Methods
 
 void Enemy::move()
 {
-    MoveForward(TANK_SPEED);
+    MoveForward(-TANK_SPEED);
 }
 
 void Enemy::turn(Direction direction)
@@ -129,12 +137,23 @@ void Enemy::fire()
 BoundingBox Enemy::bounds()
 {
     Point2d center = createPoint2d(Position.x, Position.z);
-    Point2d unrotatedTR = createPoint2d(Position.x+1, Position.z+.65);
-    Point2d unrotatedBL = createPoint2d(Position.x-1, Position.z-.65);
-    
-    Point2d topRight = RotatePoint(unrotatedTR, center, RotatedY);
-    Point2d bottomLeft = RotatePoint(unrotatedBL, center, RotatedY);
+    Point2d topRight = createPoint2d(center.x+.65, center.y+1);
+    Point2d bottomLeft = createPoint2d(center.x-.65, center.y-1);
     
     return BoundingBox(topRight, bottomLeft);
 }
 
+void Enemy::renderBounds()
+{
+    BoundingBox bounds = Enemy::bounds();
+    
+    glPushMatrix();
+    glColor3f(1, 1, 1);
+    glTranslatef(0, .01, 0);
+    glRotated(90, 1, 0, 0);
+    glRectd(bounds.getTopRight().x,
+            bounds.getTopRight().y,
+            bounds.getBottomLeft().x,
+            bounds.getBottomLeft().y);
+    glPopMatrix();
+}
