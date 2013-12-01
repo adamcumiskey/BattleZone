@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
 //
 //  Object that represents a piece of terrain at a fixed position
-//  Can be either a pyramid or iscohedron
+//  Can be either a pyramid or cube
 
 #ifndef __BattlezoneClone__TerrainObject__
 #define __BattlezoneClone__TerrainObject__

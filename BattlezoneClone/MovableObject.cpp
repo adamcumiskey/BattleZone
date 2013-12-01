@@ -81,7 +81,7 @@ float operator* (SF3dVector v, SF3dVector u)	//dot product
 	return v.x*u.x+v.y*u.y+v.z*u.z;
 }
 
-// Constructor
+#pragma mark - Public methods
 MovableObject::MovableObject(float x, float y, float z)
 {
     //Init with standard OGL values:
@@ -164,4 +164,3 @@ float MovableObject::getRotation()
 {
     return RotatedY;
 }
-

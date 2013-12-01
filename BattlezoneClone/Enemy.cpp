@@ -117,6 +117,7 @@ void Enemy::turn()
     angleTurned += TURN_SPEED;
 }
 
+// NOTE: Doesn't work very well
 void Enemy::aim(SF3dVector targetPosition)
 {
     // Get the vector between the tank and the player

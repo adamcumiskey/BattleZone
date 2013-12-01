@@ -27,6 +27,7 @@ void Player::updateCamera()
     ViewPoint.y = Position.y + ViewDir.y;
     ViewPoint.z = Position.z + ViewDir.z;
     
+    // Look at the players current direction
     gluLookAt(Position.x, Position.y, Position.z,
               ViewPoint.x, ViewPoint.y, ViewPoint.z,
               UpVector.x, UpVector.y, UpVector.z);
@@ -35,13 +36,10 @@ void Player::updateCamera()
 void Player::MoveForward(float distance)
 {
     MovableObject::MoveForward(distance);
-    
-    std::cout << "Player Pos: (" << Position.x << ", " << Position.z << ")" << std::endl;
 }
 
 BoundingBox Player::bounds()
 {
-    Point2d center = createPoint2d(Position.x, Position.z);
     Point2d topRight = createPoint2d(Position.x+1, Position.z+1);
     Point2d bottomLeft = createPoint2d(Position.x-1, Position.z-1);
     

@@ -27,6 +27,7 @@ PositionStruct Position(GLfloat x,
     return temp;
 }
 
+#pragma mark - Public methods
 TerrainObject::TerrainObject(GLfloat x,
                              GLfloat y,
                              GLfloat z,
@@ -76,6 +77,7 @@ void TerrainObject::renderObject()
     glPopMatrix();
 }
 
+#pragma mark - Collision methods
 BoundingBox TerrainObject::bounds()
 {
     Point2d topRight = createPoint2d(_position.x+(_size/2), _position.z+(_size/2));

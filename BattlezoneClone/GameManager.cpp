@@ -35,6 +35,8 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
     initializePlayer();
 }
 
+// This method is called by the OpenGL displayFunc in main.cpp
+// Should only draw objects
 void GameManager::renderWorld()
 {
     _player->updateCamera();
@@ -54,6 +56,8 @@ void GameManager::renderWorld()
     }
 }
 
+// Called by the timerFunction in main.cpp
+// Updates objects that need to be animated
 void GameManager::animateGame()
 {
     runAI();
@@ -71,6 +75,7 @@ void GameManager::animateGame()
     }
 }
 
+// Called by the keyInput function in main.cpp
 void GameManager::input(unsigned char key)
 {
     switch(key)
@@ -139,6 +144,7 @@ bool GameManager::playerDidCollide()
 #pragma mark - Projectile Manager
 void GameManager::fire()
 {
+    // Create a new projectile if one does not exist
     if (!firing) {
         firing = true;
         _playerProjectile = new Projectile(_player->getPosition(),
@@ -159,6 +165,7 @@ void GameManager::checkProjectileCollisions()
 {
     BoundingBox enemyBB = _enemy->bounds();
     
+    // collided with enemy?
     if (enemyBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
                                             _playerProjectile->centerY()))) {
         removeProjectile(_playerProjectile);
@@ -168,6 +175,7 @@ void GameManager::checkProjectileCollisions()
         createEnemy();
     }
     
+    // collided with terrain?
     std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
     while (it != _terrainObjects.end()) {
         TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
@@ -186,7 +194,10 @@ void GameManager::createEnemy()
 {
     float x = (rand() % 100) - (50);
     float z = (rand() % 100) - (50);
+    float angle = rand() % 360;
+    
     _enemy = new Enemy(x, .5, z);
+    _enemy->RotateY(angle);
     _enemy->changeAIToState(AI_MOVE);
 }
 
@@ -203,6 +214,10 @@ void GameManager::runAI()
             break;
             
         case AI_MOVE:
+            // If the enemy hits something, reverse and turn.
+            // Or, if it has moved a certain distance, turn
+            // Else move forward
+            
             if (enemyDidCollide()) {
                 _enemy->changeAIToState(AI_REVERSE);
             } else if (_enemy->getDistanceMoved() >= 10) {
@@ -214,6 +229,9 @@ void GameManager::runAI()
             break;
             
         case AI_REVERSE:
+            // After reversing a certain distance,
+            // turn and move forward
+            
             if (_enemy->getDistanceMoved() >= 3) {
                 _enemy->changeAIToState(AI_TURN);
                 _enemy->setTurnDirection(rand() % 2);
@@ -223,6 +241,9 @@ void GameManager::runAI()
             break;
             
         case AI_TURN:
+            // Turn until a certain angle is reached,
+            // then move
+            
             if (_enemy->getAngleTurned() > 45) {
                 _enemy->changeAIToState(AI_MOVE);
             } else {

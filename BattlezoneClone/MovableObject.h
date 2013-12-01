@@ -5,6 +5,8 @@
 //  Created by Adam Cumiskey on 11/26/13.
 //  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
 //
+//  Base class for all of the game objects that can move
+//  Provides a consistent way to move and rotate
 
 #ifndef __BattlezoneClone__MovableObject__
 #define __BattlezoneClone__MovableObject__

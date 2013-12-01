@@ -54,9 +54,6 @@ public:
     Point2d getTopRight();
     Point2d getBottomLeft();
     Point2d center();
-    
-    void moveToPosition(float x, float y, float z);
-    void rotate(float angle);
 };
 
 #endif /* defined(__BattlezoneClone__BoundingBox__) */

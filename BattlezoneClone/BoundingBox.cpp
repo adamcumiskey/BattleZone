@@ -74,9 +74,10 @@ BoundingBox::BoundingBox(float size, float scaleX, float scaleY)
     
 }
 
-#pragma mark - Collition detection
+#pragma mark - Collision detection
 bool BoundingBox::containsPoint(Point2d point)
 {
+    // Return true if the point is within the bounding box
     if (point.x <= _topRight.x &&
         point.x >= _bottomLeft.x &&
         point.y <= _topRight.y &&
@@ -101,7 +102,7 @@ bool BoundingBox::intersects(BoundingBox box)
     } else return false;
 }
 
-#pragma mark - Getters for postition and size
+#pragma mark - Getters for position and size
 float BoundingBox::getWidth()
 {
     return _topRight.x - _topLeft.x;
@@ -135,13 +136,4 @@ Point2d BoundingBox::getBottomLeft()
 Point2d BoundingBox::center()
 {
     return createPoint2d(getX(), getY());
-}
-
-void BoundingBox::moveToPosition(float x, float y, float z)
-{
-    _center.x = x; _center.y = z; // z represents 'y' in the xz plane
-    _topLeft.x = (getWidth()/2)+_center.x;
-    _topLeft.y = (getWidth()/2)+_center.y;
-    _bottomLeft.x = (getHeight()/2)-_center.x;
-    _bottomLeft.y = (getHeight()/2)-_center.y;
 }

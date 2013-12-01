@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
 //
 //  This class will take care of the game state, including rendering
-//  the world, checking collisions, managing the enemy object, and
-//  managing the player object.
+//  the world, checking collisions, managing the enemy object,
+//  managing the player object, and managing the projectiles fired.
 
 #ifndef __BattlezoneClone__GameManager__
 #define __BattlezoneClone__GameManager__
@@ -22,45 +22,42 @@ class Projectile;
 class GameManager
 {
 private:
+    
     // Pointer to the player object
     Player *_player;
-    
     // Initialize the player
     void initializePlayer();
+    // check player collisions and return true if collision occurs
     bool playerDidCollide();
-    
-    
-    // fire a bullet for the player
-    void fire();
     
     // store the current projectile
     Projectile *_playerProjectile;
+    // fire a bullet for the player
+    void fire();
+    // bool to keep track of whether the player has an active projectile
     bool firing;
+    // remove the current projectile
     void removeProjectile(Projectile *_projectile);
+    // check bullet collisions
+    void checkProjectileCollisions();
     
     // Pointer to the enemy object
     Enemy *_enemy;
-    
     // Create a new enemy
     void createEnemy();
     // Destroy the currentEnemy
     void removeEnemy();
-    // run the enemy's AI
+    // run the enemy's AI routine
     void runAI();
-    // check enemy collisions
+    // check enemy collisions and return true if collision occurs
     bool enemyDidCollide();
     
     // Vector containing all of the terrain objects
     std::vector<TerrainObject *> _terrainObjects;
-    
     // Randomly generate n objects within an n*n grid
     void generateObjects(int n, int gridSize);
-    
-    // Draws an infinite plane
+    // Draws an infinite green plane
     void drawGround();
-    
-    // check bullet collisions
-    void checkProjectileCollisions();
     
 public:
     GameManager();

@@ -5,7 +5,8 @@
 //  Created by Adam Cumiskey on 11/6/13.
 //  Copyright (c) 2013 Adam Cumiskey. All rights reserved.
 //
-//  Main file for the battlezone program. All OpenGL main loop logic should go here.
+//  Main file for the battlezone program. All OpenGL setup and main loop functions should go here.
+//  The GameManager takes care of all of the all the state.
 
 #include <iostream>
 #include "GameManager.h"
@@ -23,7 +24,7 @@ void setup()
     // Set the clear color to black and enable depth testing
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
-    srand(time(0)); // get a better random seed
+    srand((uint32_t)time(0)); // get a better random seed
     
     gameManager.initializeGame(100, 400);
 }
@@ -34,16 +35,16 @@ void drawScene()
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     
-    glLineWidth(2.0);
+    glLineWidth(2.0); // looks nicer
     
-    gameManager.renderWorld();
+    gameManager.renderWorld(); // draw all objects
     
     glutSwapBuffers();
 }
 
 void animate(int value)
 {
-    gameManager.animateGame();
+    gameManager.animateGame(); // update animated objects
     glutTimerFunc(10, animate, 1);
     glutPostRedisplay();
 }
@@ -60,12 +61,13 @@ void resize(int w, int h)
 
 void keyInput(unsigned char key, int x, int y)
 {
-    gameManager.input(key);
+    gameManager.input(key); // send input to the game manager
 }
 
 void printInteraction()
 {
     std::cout << "Use WASD to move the tank" << std::endl;
+    std::cout << "Press space to fire" << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -87,4 +89,3 @@ int main(int argc, char **argv)
     
     return 0;
 }
-
