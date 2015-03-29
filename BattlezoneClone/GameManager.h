@@ -19,6 +19,7 @@ class TerrainObject;
 class Enemy;
 class Player;
 class Projectile;
+class EnemyManager;
 class GameManager
 {
 private:
@@ -41,16 +42,8 @@ private:
     // check bullet collisions
     void checkProjectileCollisions();
     
-    // Pointer to the enemy object
-    Enemy *_enemy;
-    // Create a new enemy
-    void createEnemy();
-    // Destroy the currentEnemy
-    void removeEnemy();
-    // run the enemy's AI routine
-    void runAI();
-    // check enemy collisions and return true if collision occurs
-    bool enemyDidCollide();
+    // Controller for Enemy objects
+    EnemyManager *_enemyManager;
     
     // Vector containing all of the terrain objects
     std::vector<TerrainObject *> _terrainObjects;

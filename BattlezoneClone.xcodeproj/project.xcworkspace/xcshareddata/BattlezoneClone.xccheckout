@@ -10,31 +10,31 @@
 	<string>BattlezoneClone</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>832AB905-ABF7-47E8-9E87-DB6BFF2ABBD7</key>
+		<key>7E5CF589AE3A8DCFE3ED33BDA2792E1B264F3F3E</key>
 		<string>https://github.com/adamcumiskey/BattleZone.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BattlezoneClone.xcodeproj/project.xcworkspace</string>
+	<string>BattlezoneClone.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>832AB905-ABF7-47E8-9E87-DB6BFF2ABBD7</key>
+		<key>7E5CF589AE3A8DCFE3ED33BDA2792E1B264F3F3E</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/adamcumiskey/BattleZone.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>832AB905-ABF7-47E8-9E87-DB6BFF2ABBD7</string>
+	<string>7E5CF589AE3A8DCFE3ED33BDA2792E1B264F3F3E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>832AB905-ABF7-47E8-9E87-DB6BFF2ABBD7</string>
+			<string>7E5CF589AE3A8DCFE3ED33BDA2792E1B264F3F3E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>BattlezoneClone</string>
+			<string>BattleZone</string>
 		</dict>
 	</array>
 </dict>

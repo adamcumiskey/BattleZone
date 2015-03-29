@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Projectile.h"
 #include "BoundingBox.h"
+#include "EnemyManager.h"
 
 
 #ifdef __APPLE__
@@ -31,7 +32,7 @@ GameManager::GameManager()
 void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
     generateObjects(numOfTerrainObjs, gameArea);
-    createEnemy();
+    _enemyManager = new EnemyManager();
     initializePlayer();
 }
 
@@ -50,7 +51,7 @@ void GameManager::renderWorld()
         it++;
     }
     
-    _enemy->renderEnemy();
+    _enemyManager->render();
     if (firing) {
         _playerProjectile->renderProjectile();
     }
@@ -60,7 +61,7 @@ void GameManager::renderWorld()
 // Updates objects that need to be animated
 void GameManager::animateGame()
 {
-    runAI();
+    _enemyManager->runAI();
     
     if (firing) {
         _playerProjectile->move();
@@ -119,24 +120,24 @@ void GameManager::initializePlayer()
 
 bool GameManager::playerDidCollide()
 {
-    BoundingBox playerBB = _player->bounds();
-    
-    // collides with enemy tank?
-    BoundingBox enemyBB = _enemy->bounds();
-    if (playerBB.intersects(enemyBB)) {
-        return true;
-    }
-    
-    // check collisions with the landscape
-    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-    while (it != _terrainObjects.end()) {
-        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-        BoundingBox terrainBB = object.bounds();
-        if (playerBB.intersects(terrainBB)) {
-            return true;
-        }
-        it++;
-    }
+//    BoundingBox playerBB = _player->bounds();
+//    
+//    // collides with enemy tank?
+//    BoundingBox enemyBB = _enemy->bounds();
+//    if (playerBB.intersects(enemyBB)) {
+//        return true;
+//    }
+//    
+//    // check collisions with the landscape
+//    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+//    while (it != _terrainObjects.end()) {
+//        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+//        BoundingBox terrainBB = object.bounds();
+//        if (playerBB.intersects(terrainBB)) {
+//            return true;
+//        }
+//        it++;
+//    }
     
     return false;
 }
@@ -163,121 +164,32 @@ void GameManager::removeProjectile(Projectile *_projectile)
 
 void GameManager::checkProjectileCollisions()
 {
-    BoundingBox enemyBB = _enemy->bounds();
-    
-    // collided with enemy?
-    if (enemyBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
-                                            _playerProjectile->centerY()))) {
-        removeProjectile(_playerProjectile);
-        
-        // If the projectile hits the enemy, destroy it and create a new one
-        removeEnemy();
-        createEnemy();
-    }
-    
-    // collided with terrain?
-    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-    while (it != _terrainObjects.end()) {
-        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-        BoundingBox terrainBB = object.bounds();
-        if (terrainBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
-                                                  _playerProjectile->centerY()))) {
-            removeProjectile(_playerProjectile);
-        }
-        it++;
-    }
+//    BoundingBox enemyBB = _enemy->bounds();
+//    
+//    // collided with enemy?
+//    if (enemyBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
+//                                            _playerProjectile->centerY()))) {
+//        removeProjectile(_playerProjectile);
+//        
+//        // If the projectile hits the enemy, destroy it and create a new one
+//        removeEnemy();
+//        createEnemy();
+//    }
+//    
+//    // collided with terrain?
+//    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
+//    while (it != _terrainObjects.end()) {
+//        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
+//        BoundingBox terrainBB = object.bounds();
+//        if (terrainBB.containsPoint(createPoint2d(_playerProjectile->centerX(),
+//                                                  _playerProjectile->centerY()))) {
+//            removeProjectile(_playerProjectile);
+//        }
+//        it++;
+//    }
     
 }
 
-#pragma mark - Enemy Manager
-void GameManager::createEnemy()
-{
-    float x = (rand() % 100) - (50);
-    float z = (rand() % 100) - (50);
-    float angle = rand() % 360;
-    
-    _enemy = new Enemy(x, .5, z);
-    _enemy->RotateY(angle);
-    _enemy->changeAIToState(AI_MOVE);
-}
-
-void GameManager::removeEnemy()
-{
-    delete _enemy;
-}
-
-void GameManager::runAI()
-{
-    EnemyState state = _enemy->getAIState();
-    switch (state) {
-        case AI_NONE:
-            break;
-            
-        case AI_MOVE:
-            // If the enemy hits something, reverse and turn.
-            // Or, if it has moved a certain distance, turn
-            // Else move forward
-            
-            if (enemyDidCollide()) {
-                _enemy->changeAIToState(AI_REVERSE);
-            } else if (_enemy->getDistanceMoved() >= 10) {
-                _enemy->changeAIToState(AI_TURN);
-                _enemy->setTurnDirection(rand() % 2);
-            } else {
-                _enemy->move();
-            }
-            break;
-            
-        case AI_REVERSE:
-            // After reversing a certain distance,
-            // turn and move forward
-            
-            if (_enemy->getDistanceMoved() >= 3) {
-                _enemy->changeAIToState(AI_TURN);
-                _enemy->setTurnDirection(rand() % 2);
-            } else {
-                _enemy->reverse();
-            }
-            break;
-            
-        case AI_TURN:
-            // Turn until a certain angle is reached,
-            // then move
-            
-            if (_enemy->getAngleTurned() > 45) {
-                _enemy->changeAIToState(AI_MOVE);
-            } else {
-                _enemy->turn();
-            }
-            break;
-            
-        default:
-            break;
-    }
-}
-
-bool GameManager::enemyDidCollide()
-{
-    BoundingBox enemyBB = _enemy->bounds();
-    
-    // check collisions with player
-    if (enemyBB.intersects(_player->bounds())) {
-        return true;
-    }
-    
-    // check terrain collisions
-    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-    while (it != _terrainObjects.end()) {
-        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-        BoundingBox terrainBB = object.bounds();
-        if (terrainBB.intersects(enemyBB)) {
-            return true;
-        }
-        it++;
-    }
-    
-    return false;
-}
 
 #pragma mark - Terrain Manager
 void GameManager::generateObjects(int n, int gridSize)
@@ -324,9 +236,7 @@ void GameManager::drawGround()
 #pragma mark - Destructor
 GameManager::~GameManager()
 {
-    delete _enemy;
+    delete _enemyManager;
     delete _player;
-    if (_playerProjectile != NULL) {
-        delete _playerProjectile;
-    }
+    delete _playerProjectile;
 }

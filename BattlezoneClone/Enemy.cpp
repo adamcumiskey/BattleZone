@@ -26,7 +26,7 @@
 #pragma mark - Constructors
 Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
 {
-    _currentState = AI_NONE;
+    _AIState = AI_NONE;
     
     distanceMoved = 0;
     angleTurned = 0;
@@ -69,7 +69,7 @@ Enemy::Enemy(float x, float y, float z) : MovableObject(x, y, z)
 
 
 #pragma mark - Public methods
-void Enemy::renderEnemy()
+void Enemy::render()
 {
     glPushMatrix();
     glTranslatef(Position.x, Position.y, Position.z);
@@ -78,9 +78,9 @@ void Enemy::renderEnemy()
     glPopMatrix();
 }
 
-void Enemy::changeAIToState(EnemyState newState)
+void Enemy::setAIState(EnemyState newState)
 {
-    _currentState = newState;
+    _AIState = newState;
     
     // reset the params
     distanceMoved = 0;
@@ -90,7 +90,7 @@ void Enemy::changeAIToState(EnemyState newState)
 
 EnemyState Enemy::getAIState()
 {
-    return _currentState;
+    return _AIState;
 }
 
 #pragma mark - AI Methods
