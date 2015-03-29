@@ -16,20 +16,12 @@
 #include <vector>
 
 class TerrainObject;
-class Enemy;
-class Player;
 class Projectile;
+class PlayerManager;
 class EnemyManager;
 class GameManager
 {
 private:
-    
-    // Pointer to the player object
-    Player *_player;
-    // Initialize the player
-    void initializePlayer();
-    // check player collisions and return true if collision occurs
-    bool playerDidCollide();
     
     // store the current projectile
     Projectile *_playerProjectile;
@@ -41,6 +33,9 @@ private:
     void removeProjectile(Projectile *_projectile);
     // check bullet collisions
     void checkProjectileCollisions();
+    
+    // Controller for the Player object
+    PlayerManager *_playerManager;
     
     // Controller for Enemy objects
     EnemyManager *_enemyManager;

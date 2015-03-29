@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Projectile.h"
 #include "BoundingBox.h"
+#include "PlayerManager.h"
 #include "EnemyManager.h"
 
 
@@ -33,14 +34,14 @@ void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
     generateObjects(numOfTerrainObjs, gameArea);
     _enemyManager = new EnemyManager();
-    initializePlayer();
+    _playerManager = new PlayerManager();
 }
 
 // This method is called by the OpenGL displayFunc in main.cpp
 // Should only draw objects
 void GameManager::renderWorld()
 {
-    _player->updateCamera();
+    _playerManager->updateCamera();
 
     drawGround();
     
@@ -63,95 +64,37 @@ void GameManager::animateGame()
 {
     _enemyManager->runAI();
     
-    if (firing) {
-        _playerProjectile->move();
-        
-        // Remove if the projectile has gone too far
-        if (MovableObject::distance(*_player, *_playerProjectile) >= PROJECTILE_MAX_DIST) {
-            removeProjectile(_playerProjectile);
-        }
-        
-        // remove if the projectile collides
-        checkProjectileCollisions();
-    }
+//    if (firing) {
+//        _playerProjectile->move();
+//        
+//        // Remove if the projectile has gone too far
+//        if (MovableObject::distance(*_player, *_playerProjectile) >= PROJECTILE_MAX_DIST) {
+//            removeProjectile(_playerProjectile);
+//        }
+//        
+//        // remove if the projectile collides
+//        checkProjectileCollisions();
+//    }
 }
 
 // Called by the keyInput function in main.cpp
 void GameManager::input(unsigned char key)
 {
-    switch(key)
-    {
-        case 27:
-            exit(0);
-            break;
-        case 'w':
-            _player->MoveForward(-.5);
-            if (playerDidCollide()) {
-                _player->MoveForward(.5);
-            }
-            break;
-        case 'a':
-            _player->RotateY(3.0);
-            break;
-        case 's':
-            _player->MoveForward(.5);
-            if (playerDidCollide()) {
-                _player->MoveForward(-.5);
-            }
-
-            break;
-        case 'd':
-            _player->RotateY(-3.0);
-            break;
-        case ' ':
-            fire();
-            break;
-        default:
-            break;
-    }
+    _playerManager->handleKeyboardInput(key);
     glutPostRedisplay();
 }
 
-#pragma mark - Player Manager
-void GameManager::initializePlayer()
-{
-    _player = new Player(0, .5, 0);
-}
-
-bool GameManager::playerDidCollide()
-{
-//    BoundingBox playerBB = _player->bounds();
-//    
-//    // collides with enemy tank?
-//    BoundingBox enemyBB = _enemy->bounds();
-//    if (playerBB.intersects(enemyBB)) {
-//        return true;
-//    }
-//    
-//    // check collisions with the landscape
-//    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-//    while (it != _terrainObjects.end()) {
-//        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-//        BoundingBox terrainBB = object.bounds();
-//        if (playerBB.intersects(terrainBB)) {
-//            return true;
-//        }
-//        it++;
-//    }
-    
-    return false;
-}
 
 #pragma mark - Projectile Manager
 void GameManager::fire()
 {
-    // Create a new projectile if one does not exist
-    if (!firing) {
-        firing = true;
-        _playerProjectile = new Projectile(_player->getPosition(),
-                                           _player->getDirection(),
-                                           _player->getRotation());
-    }
+//    // Create a new projectile if one does not exist
+//    if (!firing) {
+//        firing = true;
+//        _playerProjectile = new Projectile(_player->getPosition(),
+//                                           _player->getDirection(),
+//                                           _player->getRotation());
+//    }
 }
 
 void GameManager::removeProjectile(Projectile *_projectile)
@@ -237,6 +180,6 @@ void GameManager::drawGround()
 GameManager::~GameManager()
 {
     delete _enemyManager;
-    delete _player;
+    delete _playerManager;
     delete _playerProjectile;
 }

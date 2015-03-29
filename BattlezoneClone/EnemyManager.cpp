@@ -23,24 +23,24 @@ void EnemyManager::createEnemy()
     float z = (rand() % 100) - (50);
     float angle = rand() % 360;
     
-    _enemy = new Enemy(x, .5, z);
-    _enemy->RotateY(angle);
-    _enemy->setAIState(AI_MOVE);
+    enemy = new Enemy(x, .5, z);
+    enemy->RotateY(angle);
+    enemy->setAIState(AI_MOVE);
 }
 
 void EnemyManager::removeEnemy()
 {
-    delete _enemy;
+    delete enemy;
 }
 
 void EnemyManager::render()
 {
-    _enemy->render();
+    enemy->render();
 }
 
 void EnemyManager::runAI()
 {
-    EnemyState state = _enemy->getAIState();
+    EnemyState state = enemy->getAIState();
     switch (state) {
         case AI_NONE:
             break;
@@ -51,12 +51,12 @@ void EnemyManager::runAI()
             // Else move forward
             
             if (enemyDidCollide()) {
-                _enemy->setAIState(AI_REVERSE);
-            } else if (_enemy->getDistanceMoved() >= 10) {
-                _enemy->setAIState(AI_TURN);
-                _enemy->setTurnDirection(rand() % 2);
+                enemy->setAIState(AI_REVERSE);
+            } else if (enemy->getDistanceMoved() >= 10) {
+                enemy->setAIState(AI_TURN);
+                enemy->setTurnDirection(rand() % 2);
             } else {
-                _enemy->move();
+                enemy->move();
             }
             break;
             
@@ -64,11 +64,11 @@ void EnemyManager::runAI()
             // After reversing a certain distance,
             // turn and move forward
             
-            if (_enemy->getDistanceMoved() >= 3) {
-                _enemy->setAIState(AI_TURN);
-                _enemy->setTurnDirection(rand() % 2);
+            if (enemy->getDistanceMoved() >= 3) {
+                enemy->setAIState(AI_TURN);
+                enemy->setTurnDirection(rand() % 2);
             } else {
-                _enemy->reverse();
+                enemy->reverse();
             }
             break;
             
@@ -76,10 +76,10 @@ void EnemyManager::runAI()
             // Turn until a certain angle is reached,
             // then move
             
-            if (_enemy->getAngleTurned() > 45) {
-                _enemy->setAIState(AI_MOVE);
+            if (enemy->getAngleTurned() > 45) {
+                enemy->setAIState(AI_MOVE);
             } else {
-                _enemy->turn();
+                enemy->turn();
             }
             break;
             
@@ -91,7 +91,7 @@ void EnemyManager::runAI()
 // TODO: Refactor to use QuadTree
 bool EnemyManager::enemyDidCollide()
 {
-//    BoundingBox enemyBB = _enemy->bounds();
+//    BoundingBox enemyBB = enemy->bounds();
 //    
 //    // check collisions with player
 //    if (enemyBB.intersects(_player->bounds())) {
@@ -110,4 +110,9 @@ bool EnemyManager::enemyDidCollide()
 //    }
     
     return false;
+}
+
+EnemyManager::~EnemyManager()
+{
+    delete enemy;
 }

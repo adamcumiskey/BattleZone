@@ -15,19 +15,24 @@ class Enemy;
 class EnemyManager
 {
 public:
-    // Pointer to the enemy object
-    Enemy *_enemy;
-public:
     EnemyManager();
+    ~EnemyManager();
+    
+    // Pointer to the enemy object
+    Enemy *enemy;
     
     // Create a new enemy
     void createEnemy();
+    
     // Destroy the currentEnemy
     void removeEnemy();
+    
     // Render the enemies
     void render();
+    
     // run the enemy's AI routine
     void runAI();
+    
     // check enemy collisions and return true if collision occurs
     bool enemyDidCollide();
 };

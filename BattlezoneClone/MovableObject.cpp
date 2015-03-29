@@ -82,15 +82,13 @@ float operator* (SF3dVector v, SF3dVector u)	//dot product
 }
 
 #pragma mark - Public methods
+// TODO: Make this initializer more robust
 MovableObject::MovableObject(float x, float y, float z)
 {
-    //Init with standard OGL values:
 	Position = F3dVector (x, y,	z);
 	ViewDir = F3dVector(0.0, 0.0, -1.0);
 	RightVector = F3dVector (1.0, 0.0, 0.0);
 	UpVector = F3dVector (0.0, 1.0, 0.0);
-    
-	//Only to be sure:
 	RotatedX = RotatedY = RotatedZ = 0.0;
 }
 
@@ -109,8 +107,6 @@ void MovableObject::RotateX (float Angle)
     
 	//now compute the new UpVector (by cross product)
 	UpVector = CrossProduct(&ViewDir, &RightVector)*-1;
-    
-	
 }
 
 void MovableObject::RotateY (float Angle)
