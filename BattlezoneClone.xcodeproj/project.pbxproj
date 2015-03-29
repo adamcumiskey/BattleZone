@@ -20,6 +20,7 @@
 		62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */; };
 		6623494D1AC87DDE0079DDD2 /* EnemyManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6623494B1AC87DDE0079DDD2 /* EnemyManager.cpp */; };
 		662349501AC888FA0079DDD2 /* PlayerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6623494E1AC888FA0079DDD2 /* PlayerManager.cpp */; };
+		662349531AC8AC150079DDD2 /* WorldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662349511AC8AC150079DDD2 /* WorldManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,8 @@
 		6623494C1AC87DDE0079DDD2 /* EnemyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyManager.h; sourceTree = "<group>"; };
 		6623494E1AC888FA0079DDD2 /* PlayerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayerManager.cpp; path = BattlezoneClone/PlayerManager.cpp; sourceTree = "<group>"; };
 		6623494F1AC888FA0079DDD2 /* PlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerManager.h; path = BattlezoneClone/PlayerManager.h; sourceTree = "<group>"; };
+		662349511AC8AC150079DDD2 /* WorldManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldManager.cpp; sourceTree = "<group>"; };
+		662349521AC8AC150079DDD2 /* WorldManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldManager.h; sourceTree = "<group>"; };
 		668FE09D1AC85CC400D17288 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		668FE09E1AC85CC400D17288 /* common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		668FE0A01AC85CC400D17288 /* _features.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _features.hpp; sourceTree = "<group>"; };
@@ -443,6 +446,8 @@
 		62FDE0B0182C5609008C2DBA /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
+				662349521AC8AC150079DDD2 /* WorldManager.h */,
+				662349511AC8AC150079DDD2 /* WorldManager.cpp */,
 				62FDE0AE182C55FF008C2DBA /* TerrainObject.h */,
 				62FDE0AD182C55FF008C2DBA /* TerrainObject.cpp */,
 			);
@@ -785,6 +790,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				662349531AC8AC150079DDD2 /* WorldManager.cpp in Sources */,
 				62ED17621844DF0A004D351D /* Projectile.cpp in Sources */,
 				620644411831B20F0090DAB3 /* QuadTree.cpp in Sources */,
 				62ED1A8F1844E2B0004D351D /* MovableObject.cpp in Sources */,

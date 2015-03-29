@@ -15,10 +15,10 @@
 #include <iostream>
 #include <vector>
 
-class TerrainObject;
 class Projectile;
 class PlayerManager;
 class EnemyManager;
+class WorldManager;
 class GameManager
 {
 private:
@@ -35,17 +35,13 @@ private:
     void checkProjectileCollisions();
     
     // Controller for the Player object
-    PlayerManager *_playerManager;
+    PlayerManager *playerManager;
     
     // Controller for Enemy objects
-    EnemyManager *_enemyManager;
+    EnemyManager *enemyManager;
     
-    // Vector containing all of the terrain objects
-    std::vector<TerrainObject *> _terrainObjects;
-    // Randomly generate n objects within an n*n grid
-    void generateObjects(int n, int gridSize);
-    // Draws an infinite green plane
-    void drawGround();
+    // Controller for static terrain objects
+    WorldManager *worldManager;
     
 public:
     GameManager();

@@ -14,6 +14,7 @@
 #include "BoundingBox.h"
 #include "PlayerManager.h"
 #include "EnemyManager.h"
+#include "WorldManager.h"
 
 
 #ifdef __APPLE__
@@ -32,27 +33,19 @@ GameManager::GameManager()
 
 void GameManager::initializeGame(int numOfTerrainObjs, int gameArea)
 {
-    generateObjects(numOfTerrainObjs, gameArea);
-    _enemyManager = new EnemyManager();
-    _playerManager = new PlayerManager();
+    worldManager = new WorldManager(numOfTerrainObjs, gameArea);
+    enemyManager = new EnemyManager();
+    playerManager = new PlayerManager();
 }
 
 // This method is called by the OpenGL displayFunc in main.cpp
-// Should only draw objects
+// Draws all the objects in the game world
 void GameManager::renderWorld()
 {
-    _playerManager->updateCamera();
-
-    drawGround();
+    playerManager->updateCamera();
+    worldManager->render();
+    enemyManager->render();
     
-    std::vector<TerrainObject *>::iterator it = _terrainObjects.begin();
-    while (it != _terrainObjects.end()) {
-        TerrainObject object = *_terrainObjects.at(it - _terrainObjects.begin());
-        object.renderObject();
-        it++;
-    }
-    
-    _enemyManager->render();
     if (firing) {
         _playerProjectile->renderProjectile();
     }
@@ -62,7 +55,7 @@ void GameManager::renderWorld()
 // Updates objects that need to be animated
 void GameManager::animateGame()
 {
-    _enemyManager->runAI();
+    enemyManager->runAI();
     
 //    if (firing) {
 //        _playerProjectile->move();
@@ -80,7 +73,7 @@ void GameManager::animateGame()
 // Called by the keyInput function in main.cpp
 void GameManager::input(unsigned char key)
 {
-    _playerManager->handleKeyboardInput(key);
+    playerManager->handleKeyboardInput(key);
     glutPostRedisplay();
 }
 
@@ -134,52 +127,13 @@ void GameManager::checkProjectileCollisions()
 }
 
 
-#pragma mark - Terrain Manager
-void GameManager::generateObjects(int n, int gridSize)
-{
-    for (int i = 0; i < n; i++) {
-        
-        // Generate random size between 1 and 3
-        GLdouble size = (float)(rand() % 3)+1;
-        
-        // generate random x and z positions within the grid
-        GLfloat x = (rand() % gridSize) - (gridSize/2);
-        GLfloat z = (rand() % gridSize) - (gridSize/2);
-        
-        // set the y to touch the ground
-        GLfloat y = 0;
-        
-        // Generate a type
-        TerrainType type = rand() % 2;
-        
-        TerrainObject *object = new TerrainObject(x,
-                                                  y,
-                                                  z,
-                                                  size,
-                                                  type);
-        _terrainObjects.push_back(object);
-    }
-}
 
-void GameManager::drawGround()
-{
-    // Draw 4 triangles from the origin with
-    // 4 unit vertecies located at infinity
-    glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.0, 0.75, 0.0);
-    glVertex4f(0, 0, 0, 1);
-    glVertex4f(1, 0, 0, 0);
-    glVertex4f(0, 0, 1, 0);
-    glVertex4f(-1, 0, 0, 0);
-    glVertex4f(0, 0, -1, 0);
-    glVertex4f(1, 0, 0, 0);
-    glEnd();
-}
 
 #pragma mark - Destructor
 GameManager::~GameManager()
 {
-    delete _enemyManager;
-    delete _playerManager;
+    delete enemyManager;
+    delete playerManager;
+    delete worldManager;
     delete _playerProjectile;
 }
