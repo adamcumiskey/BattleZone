@@ -21,6 +21,7 @@
 		6623494D1AC87DDE0079DDD2 /* EnemyManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6623494B1AC87DDE0079DDD2 /* EnemyManager.cpp */; };
 		662349501AC888FA0079DDD2 /* PlayerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6623494E1AC888FA0079DDD2 /* PlayerManager.cpp */; };
 		662349531AC8AC150079DDD2 /* WorldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662349511AC8AC150079DDD2 /* WorldManager.cpp */; };
+		662349561AC8B5D20079DDD2 /* ProjectileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662349541AC8B5D20079DDD2 /* ProjectileManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +63,8 @@
 		6623494F1AC888FA0079DDD2 /* PlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerManager.h; path = BattlezoneClone/PlayerManager.h; sourceTree = "<group>"; };
 		662349511AC8AC150079DDD2 /* WorldManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldManager.cpp; sourceTree = "<group>"; };
 		662349521AC8AC150079DDD2 /* WorldManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldManager.h; sourceTree = "<group>"; };
+		662349541AC8B5D20079DDD2 /* ProjectileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectileManager.cpp; path = BattlezoneClone/ProjectileManager.cpp; sourceTree = "<group>"; };
+		662349551AC8B5D20079DDD2 /* ProjectileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectileManager.h; path = BattlezoneClone/ProjectileManager.h; sourceTree = "<group>"; };
 		668FE09D1AC85CC400D17288 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		668FE09E1AC85CC400D17288 /* common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		668FE0A01AC85CC400D17288 /* _features.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _features.hpp; sourceTree = "<group>"; };
@@ -381,6 +384,8 @@
 		62ED175F1844DEE5004D351D /* Projectile */ = {
 			isa = PBXGroup;
 			children = (
+				662349551AC8B5D20079DDD2 /* ProjectileManager.h */,
+				662349541AC8B5D20079DDD2 /* ProjectileManager.cpp */,
 				62ED17611844DF0A004D351D /* Projectile.h */,
 				62ED17601844DF0A004D351D /* Projectile.cpp */,
 			);
@@ -801,6 +806,7 @@
 				6206444B1831B90F0090DAB3 /* BoundingBox.cpp in Sources */,
 				662349501AC888FA0079DDD2 /* PlayerManager.cpp in Sources */,
 				62ED175E1844639F004D351D /* GameManager.cpp in Sources */,
+				662349561AC8B5D20079DDD2 /* ProjectileManager.cpp in Sources */,
 				62FDE0AF182C55FF008C2DBA /* TerrainObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

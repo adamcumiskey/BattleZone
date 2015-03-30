@@ -19,20 +19,10 @@ class Projectile;
 class PlayerManager;
 class EnemyManager;
 class WorldManager;
+class ProjectileManager;
 class GameManager
 {
 private:
-    
-    // store the current projectile
-    Projectile *_playerProjectile;
-    // fire a bullet for the player
-    void fire();
-    // bool to keep track of whether the player has an active projectile
-    bool firing;
-    // remove the current projectile
-    void removeProjectile(Projectile *_projectile);
-    // check bullet collisions
-    void checkProjectileCollisions();
     
     // Controller for the Player object
     PlayerManager *playerManager;
@@ -42,6 +32,9 @@ private:
     
     // Controller for static terrain objects
     WorldManager *worldManager;
+    
+    // Controller for projectiles
+    ProjectileManager *projectileManager;
     
 public:
     GameManager();

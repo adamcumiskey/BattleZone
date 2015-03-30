@@ -20,7 +20,7 @@ private:
 public:
     Projectile(SF3dVector playerPosition, SF3dVector direction, float angle);
     
-    void renderProjectile();
+    void render();
     void move();
     
     float centerX();
