@@ -29,7 +29,7 @@ enum {
 class Enemy : public MovableObject
 {
 private:
-    EnemyState _currentState;
+    EnemyState _AIState;
     int _displayList;
     
     // The total amount the enemy has moved/turned during each AI_Phase
@@ -40,8 +40,8 @@ private:
 public:
     Enemy(float x, float y, float z);
     
-    void renderEnemy();
-    void changeAIToState(EnemyState newState);
+    void render();
+    void setAIState(EnemyState newState);
     EnemyState getAIState();
     
     void move();

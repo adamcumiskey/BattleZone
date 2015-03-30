@@ -15,49 +15,26 @@
 #include <iostream>
 #include <vector>
 
-class TerrainObject;
-class Enemy;
-class Player;
 class Projectile;
+class PlayerManager;
+class EnemyManager;
+class WorldManager;
+class ProjectileManager;
 class GameManager
 {
 private:
     
-    // Pointer to the player object
-    Player *_player;
-    // Initialize the player
-    void initializePlayer();
-    // check player collisions and return true if collision occurs
-    bool playerDidCollide();
+    // Controller for the Player object
+    PlayerManager *playerManager;
     
-    // store the current projectile
-    Projectile *_playerProjectile;
-    // fire a bullet for the player
-    void fire();
-    // bool to keep track of whether the player has an active projectile
-    bool firing;
-    // remove the current projectile
-    void removeProjectile(Projectile *_projectile);
-    // check bullet collisions
-    void checkProjectileCollisions();
+    // Controller for Enemy objects
+    EnemyManager *enemyManager;
     
-    // Pointer to the enemy object
-    Enemy *_enemy;
-    // Create a new enemy
-    void createEnemy();
-    // Destroy the currentEnemy
-    void removeEnemy();
-    // run the enemy's AI routine
-    void runAI();
-    // check enemy collisions and return true if collision occurs
-    bool enemyDidCollide();
+    // Controller for static terrain objects
+    WorldManager *worldManager;
     
-    // Vector containing all of the terrain objects
-    std::vector<TerrainObject *> _terrainObjects;
-    // Randomly generate n objects within an n*n grid
-    void generateObjects(int n, int gridSize);
-    // Draws an infinite green plane
-    void drawGround();
+    // Controller for projectiles
+    ProjectileManager *projectileManager;
     
 public:
     GameManager();

@@ -33,7 +33,7 @@ Projectile::Projectile(SF3dVector playerPosition, SF3dVector direction, float an
     _displayList = index;
 }
 
-void Projectile::renderProjectile()
+void Projectile::render()
 {
     glPushMatrix();
     glTranslatef(Position.x, Position.y, Position.z);
