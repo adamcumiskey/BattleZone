@@ -26,6 +26,11 @@ struct Point2d {
 Point2d createPoint2d(float x, float y);
 Point2d RotatePoint(Point2d pointToRotate, Point2d centerPoint, double angleInDegrees);
 
+struct Rect {
+    float x, y, width, height;
+};
+Rect MakeRect(float x, float y, float width, float height);
+
 class BoundingBox
 {
 private:
@@ -38,7 +43,7 @@ public:
                 Point2d bottomLeft);
     BoundingBox(float x1, float y1,
                 float x2, float y2);
-    BoundingBox(float size, float scaleX, float scaleY);
+    BoundingBox(Rect rect);
     
     // Return true if the point is within the bounding box
     bool containsPoint(Point2d point);

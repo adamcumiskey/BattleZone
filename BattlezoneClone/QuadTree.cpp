@@ -55,7 +55,6 @@ void QuadTree::insert(TerrainObject *object)
                 } else {
                     objectsIterator++;
                 }
-                delete object;
             }
         }
     }
@@ -149,5 +148,6 @@ QuadTree::~QuadTree()
 {
     delete[] *nodes;
     delete objects;
+    delete bounds;
     
 }

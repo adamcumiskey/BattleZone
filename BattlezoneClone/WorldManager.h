@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <vector>
 
+class CollisionManager;
 class TerrainObject;
 class WorldManager
 {
@@ -27,6 +28,8 @@ private:
     void renderObjects();
     
     void deleteObject(TerrainObject *object);
+    
+    CollisionManager *collisionManager;
 public:
     WorldManager(int n, int gridSize);
     ~WorldManager();

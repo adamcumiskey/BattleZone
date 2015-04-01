@@ -39,6 +39,16 @@ Point2d RotatePoint(Point2d pointToRotate, Point2d centerPoint, double angleInDe
     return createPoint2d(x, y);
 }
 
+Rect MakeRect(float x, float y, float width, float height)
+{
+    Rect temp;
+    temp.x = x;
+    temp.y = y;
+    temp.width = width;
+    temp.height = height;
+    return temp;
+}
+
 #pragma mark - Constructors
 BoundingBox::BoundingBox()
 {
@@ -52,9 +62,6 @@ BoundingBox::BoundingBox(Point2d topRight,
     _bottomLeft = bottomLeft;
     _topLeft = createPoint2d(_bottomLeft.x, _topRight.y);
     _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
-    
-    _center.x = (_topRight.x+_bottomLeft.x)/2;
-    _center.y = (_topRight.y+_bottomLeft.y)/2;
 }
 
 BoundingBox::BoundingBox(float x1, float y1,
@@ -64,14 +71,14 @@ BoundingBox::BoundingBox(float x1, float y1,
     _bottomLeft = createPoint2d(x2, y2);
     _topLeft = createPoint2d(_bottomLeft.x, _topRight.y);
     _bottomRight = createPoint2d(_topRight.x, _bottomLeft.y);
-    
-    _center.x = (_topRight.x+_bottomLeft.x)/2;
-    _center.y = (_topRight.y+_bottomLeft.y)/2;
 }
 
-BoundingBox::BoundingBox(float size, float scaleX, float scaleY)
+BoundingBox::BoundingBox(Rect rect)
 {
-    
+    _topLeft = createPoint2d(0, 0);
+    _bottomLeft = createPoint2d(0, rect.height);
+    _bottomRight = createPoint2d(rect.width, rect.height);
+    _topRight = createPoint2d(rect.width, 0);
 }
 
 #pragma mark - Collision detection
@@ -135,5 +142,9 @@ Point2d BoundingBox::getBottomLeft()
 
 Point2d BoundingBox::center()
 {
-    return createPoint2d(getX(), getY());
+    Point2d center;
+    center.x = (_topRight.x+_bottomLeft.x)/2;
+    center.y = (_topRight.y+_bottomLeft.y)/2;
+    return center;
 }
+

@@ -8,6 +8,7 @@
 
 #include "WorldManager.h"
 #include "TerrainObject.h"
+#include "CollisionManager.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -18,6 +19,7 @@
 WorldManager::WorldManager(int n, int gridSize)
 {
     generateObjects(n, gridSize);
+    collisionManager = new CollisionManager(terrainObjects, gridSize);
 }
 
 #pragma mark - Terrain Manager
@@ -58,7 +60,7 @@ void WorldManager::drawGround()
     // Draw 4 triangles from the origin with
     // 4 unit vertecies located at infinity
     glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.0, 0.75, 0.0);
+    glColor3f(0.75, 0.75, 0.75);
     glVertex4f(0, 0, 0, 1);
     glVertex4f(1, 0, 0, 0);
     glVertex4f(0, 0, 1, 0);
