@@ -26,11 +26,11 @@ class TerrainObject;
 class QuadTree
 {
 private:
-    std::vector<TerrainObject *> _items;
+    std::vector<TerrainObject *> *objects;
     
-    int _level;
-    BoundingBox *_bounds;
-    QuadTree *_nodes[4]; // pointer to the array of the 4 nodes of this quad
+    int level;
+    BoundingBox *bounds;
+    QuadTree *nodes[4]; // pointer to the array of the 4 nodes of this quad
     
     void split(); // Split a node into 4 subnodes
     int getIndex(TerrainObject *object); // Determine the node that the object is in
